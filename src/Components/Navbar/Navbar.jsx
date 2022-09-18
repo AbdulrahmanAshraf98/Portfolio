@@ -8,10 +8,10 @@ const Navbar = () => {
 		setNavOpen((prevState) => !prevState);
 	}, []);
 	return (
-		<nav className=" w-full h-20 fixed px-2 bg-black text-white z-30">
-			<div className="container m-auto h-full">
+		<nav className=" w-full h-20 sticky top-0  bg-black text-white z-30">
+			<div className="container m-auto h-full px-8  lg:px-16">
 				<div className="flex justify-between items-center h-full">
-					<div className="nav__logo pl-2">
+					<div className="nav__logo ">
 						<h1 className="text-4xl font-signature">AS</h1>
 					</div>
 					<ul className="nav__links hidden md:flex">
