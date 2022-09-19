@@ -3,7 +3,7 @@ export const EXPERIENCE = [
 		id: "EX1",
 		jobTitle: "Front End Trainee",
 		from: "itrax academy",
-		date: `2-2022  3-2022`,
+		date: `2-2022 3-2022`,
 		info: ``,
 	},
 	{
