@@ -12,7 +12,7 @@ const Home = () => {
 						<h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold ">
 							I am Front End Developer
 						</h2>
-						<p className="text-lg text-gray-500 py-4 max-w-2xl">
+						<p className="text-lg text-gray-500 py-8 max-w-2xl">
 							I am passionate frontend developer from Egypt I Graduated from
 							faculty of commerce department of Business information systems,
 							Helwan university (2016- 2020) with Very Good grade.Seeking a job
