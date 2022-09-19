@@ -5,7 +5,7 @@ const Home = () => {
 	return (
 		<section
 			id="Home"
-			className="hero-section text-5xl text-gray-800 w-full  bg-gradient-to-b from-black via-black to-gray-800  h-100 py-8 ">
+			className="hero-section text-5xl text-gray-800 w-full  bg-gradient-to-b from-black via-black to-gray-800  h-100 py-16 ">
 			<div class="container m-auto px-8 lg:px-16   h-full">
 				<div className="flex flex-wrap justify-between items-center h-full">
 					<div className="hero-section__content w-full md:w-6/12  text-gray-200 flex flex-col justify-center  order-2 md:order-1">
