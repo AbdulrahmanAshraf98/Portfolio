@@ -3,7 +3,7 @@ import React from "react";
 const SkillsCard = ({ className, item }) => {
 	return (
 		<div
-			className={`card shadow-${item.shadowColor}-500 shadow-md hover:shadow-xl py-2 rounded-lg duration-500`}>
+			className={`card ${item.shadowColor} shadow-md hover:shadow-xl py-2 rounded-lg duration-500`}>
 			<div className="card_image overflow-hidden mb-4 ">
 				<img
 					className=" w-20 mx-auto h-20 sm:h-40  object-contain"
