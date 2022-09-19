@@ -9,12 +9,17 @@ export const LINKS = [
 	},
 	{
 		id: 3,
-		name: "Portfolio",
+		name: "Resume",
 	},
 	{
 		id: 4,
-		name: "Experience",
+		name: "Skills",
 	},
+	{
+		id: 5,
+		name: "Portfolio",
+	},
+
 	{
 		id: 5,
 		name: "Contact",
