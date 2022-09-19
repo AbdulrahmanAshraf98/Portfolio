@@ -95,7 +95,7 @@ export const SKILLS = [
 		id: "Github-5",
 		name: "Github ",
 		icon__url: "https://cdn.worldvectorlogo.com/logos/github-icon.svg",
-		shadowColor: "gray",
+		shadowColor: "shadow-gray-500",
 		shadowColorHover: "hover:shadow-gray-700",
 	},
 ];
