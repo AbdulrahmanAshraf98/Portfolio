@@ -8,3 +8,40 @@
     scroll-behavior: smooth;
   }
 }
+@layer components{
+  .timeline{
+    @apply
+      relative
+      border-l-4 border-gray-200
+      py-8
+  }
+  .dot{
+    @apply
+      absolute top-6 -left-3.5
+      bg-blue-400
+      h-6 w-6
+      rounded-full
+      border-4 border-white
+  }
+  .timeline-date{
+    @apply 
+    text-base text-white font-bold 
+    opacity-40 tracking-widest
+  }
+  .timeline-title{
+    @apply 
+     text-2xl sm:text-3xl text-gray-200 font-semibold
+     tracking-wide my-2
+
+  }
+  .timeline-subtitle{
+    @apply 
+    text-xl text-gray-400 font-semibold
+    tracking-wide mb-2
+  }
+  .timeline-content{
+    @apply 
+    text-base text-gray-100 font-light
+    tracking-wide mb-2
+  }
+}
