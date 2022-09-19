@@ -12,7 +12,7 @@ const Navbar = () => {
 			<div className="container m-auto h-full px-8  lg:px-16">
 				<div className="flex justify-between items-center h-full">
 					<div className="nav__logo ">
-						<h1 className="text-4xl font-signature">AS</h1>
+						<h1 className="text-3xl lg:text-2xl font-signature">AS</h1>
 					</div>
 					<ul className="nav__links hidden md:flex">
 						{LINKS.map((link) => (
