@@ -1,9 +1,31 @@
-import React, { useState } from "react";
-import ProjectCardItem from "./ProjectCardItem/ProjectCardItem";
+import React, { useCallback, useEffect, useState } from "react";
 import { PROJECTS__DATA } from "../../utilities/Constant/Data/ProjectsData/projectsData";
-
+import FilterProjects from "./FilterProjects/FilterProjects";
+import Projects from "./Projects/Projects";
+const allTechnologies = PROJECTS__DATA.reduce((accumulator, current) => {
+	accumulator = [...accumulator, ...current.categories];
+	return accumulator;
+}, []);
+const allCategory = ["All", ...new Set(allTechnologies)];
 const Portfolio = () => {
-	const [Projects, setProjects] = useState(PROJECTS__DATA);
+	const [projects, setProjects] = useState(PROJECTS__DATA);
+	const [selectedCategory, setSelectedCategory] = useState("All");
+	const selectedCategoryHandler = useCallback((event) => {
+		setSelectedCategory(event.target.value);
+	}, []);
+	const getProjects = () => {
+		let filterProject = PROJECTS__DATA;
+		if (selectedCategory !== "All") {
+			filterProject = filterProject.filter(
+				(project) => project.categories.indexOf(selectedCategory) !== -1,
+			);
+		}
+		setProjects(filterProject);
+	};
+	useEffect(() => {
+		getProjects();
+	}, [selectedCategory]);
+
 	return (
 		<section
 			id="Portfolio"
@@ -14,11 +36,18 @@ const Portfolio = () => {
 						Portfolio
 					</h3>
 				</div>
+				<div className="categoriesFilter overflow-y-auto my-8">
+					<div className="categoriesFilterButtons flex md:flex-wrap gap:4 ">
+						<FilterProjects
+							allCategory={allCategory}
+							selectedCategoryHandler={selectedCategoryHandler}
+							active={selectedCategory}
+						/>
+					</div>
+				</div>
 
 				<div className="projects__items w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
-					{Projects.map((project) => (
-						<ProjectCardItem key={project.id} project={project} />
-					))}
+					<Projects projects={projects} />
 				</div>
 			</div>
 		</section>

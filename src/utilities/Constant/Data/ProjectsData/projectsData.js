@@ -37,6 +37,7 @@ export const PROJECTS__DATA = [
 			"React-Router-Dom",
 			"Youtube-Api",
 		],
+		categories: ["React Js"],
 	},
 	{
 		id: "pd-2",
@@ -57,6 +58,7 @@ export const PROJECTS__DATA = [
 			"React-Router-Dom",
 			"Styled-Components",
 		],
+		categories: ["React Js"],
 	},
 	{
 		id: "pd-3",
@@ -75,6 +77,7 @@ export const PROJECTS__DATA = [
 			"React-Context Api",
 			"React-Router-Dom",
 		],
+		categories: ["React Js"],
 	},
 	{
 		id: "pd-4",
@@ -87,6 +90,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1odZQnTPg_mECg8wqYS3arTODXZHc-ljI/view?usp=sharing ",
 
 		technologies: ["Js", "Sass", "Api"],
+		categories: ["Js"],
 	},
 	{
 		id: "pd-5",
@@ -99,6 +103,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/13P6cntYYmDB3I3Yq-3G_GXp58xTUOlNh/view",
 
 		technologies: ["Bootstrap4", "Jquery", "Html5", "Css3"],
+		categories: ["Bootstrap", "Jquery"],
 	},
 	{
 		id: "pd-6",
@@ -111,6 +116,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1vnBJxeC7AKfTBpZ2S2WUNsx-YMlMmWvq/view",
 
 		technologies: ["Bootstrap4", "Jquery", "Html5", "Css3"],
+		categories: ["Bootstrap", "Jquery"],
 	},
 	{
 		id: "pd-7",
@@ -124,6 +130,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1x1eJ6vxCKN3mRQa_zM1SLEbIHhVEP9yb/view",
 
 		technologies: ["Html5", "Css3", "Figma"],
+		categories: ["Html-Css"],
 	},
 	{
 		id: "pd-8",
@@ -136,6 +143,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1odZQnTPg_mECg8wqYS3arTODXZHc-ljI/view?usp=sharing ",
 
 		technologies: ["Html5", "Css3"],
+		categories: ["Html-Css"],
 	},
 	{
 		id: "pd-9",
@@ -148,6 +156,7 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1U3CMvpTI9doMK_bbJV-eopiErUATx4nn/view",
 
 		technologies: ["Html5", "Css3"],
+		categories: ["Html-Css"],
 	},
 	{
 		id: "pd-10",
@@ -160,5 +169,6 @@ export const PROJECTS__DATA = [
 			"https://drive.google.com/file/d/1elOt7oM8hedZFeTECi2bjXf_yqMWUaVY/view",
 
 		technologies: ["Html5", "Css3"],
+		categories: ["Html-Css"],
 	},
 ];

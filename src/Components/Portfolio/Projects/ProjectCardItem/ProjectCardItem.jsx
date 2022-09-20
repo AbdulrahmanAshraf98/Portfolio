@@ -1,5 +1,5 @@
 import React from "react";
-import LazyImage from "../../LazyImage/LazyImage";
+import LazyImage from "../../../LazyImage/LazyImage";
 
 const ProjectCardItem = ({ project }) => {
 	return (
