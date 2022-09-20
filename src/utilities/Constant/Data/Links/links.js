@@ -20,8 +20,4 @@ export const LINKS = [
 		name: "Portfolio",
 	},
 
-	{
-		id: 5,
-		name: "Contact",
-	},
 ];
