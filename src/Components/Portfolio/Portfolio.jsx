@@ -6,7 +6,7 @@ const Portfolio = () => {
 	const [Projects, setProjects] = useState(PROJECTS__DATA);
 	return (
 		<section
-			id=""
+			id="Portfolio"
 			className="portfolio py-16 bg-gradient-to-b from-gray-800 via-black to-black text-white">
 			<div className="container  m-auto h-full px-8  lg:px-16">
 				<div class="portfolio__content__title mb-12">
