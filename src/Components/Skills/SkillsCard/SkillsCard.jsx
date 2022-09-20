@@ -8,6 +8,7 @@ const SkillsCard = ({ className, item }) => {
 				<img
 					className=" w-20 mx-auto h-20 sm:h-40  object-contain"
 					src={item.icon__url}
+					alt={item.name}
 				/>
 			</div>
 			<div className="card__content text-center">

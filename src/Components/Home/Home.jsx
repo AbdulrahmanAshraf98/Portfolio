@@ -1,6 +1,8 @@
 import React from "react";
+import LazyHeroImage from "../../assets/ProfileLazy.webp";
 import HeroImage from "../../assets/Profile.webp";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import LazyImage from "../LazyImage/LazyImage";
 const Home = () => {
 	return (
 		<section
@@ -29,11 +31,15 @@ const Home = () => {
 							</button>
 						</div>
 					</div>
-					<div className="hero-section__image w-full md:w-5/12  bg-gradient-to-b from-blue-400 to-black rounded-2xl order-1 md:order-2 mb-8 md:mb-0">
-						<img
-							className=" mx-auto w-full md:W-full object-cover"
-							src={HeroImage}
-							alt="ProfileImage"
+					<div className="hero-section__image w-full md:w-5/12   order-1 md:order-2 mb-8 md:mb-0">
+						<LazyImage
+							image={{
+								alt: "ProfileImage",
+								src: HeroImage,
+								lazy: LazyHeroImage,
+							}}
+							wrapperClassName="block w-full h-full rounded-2xl overflow-hidden bg-gradient-to-b from-blue-400 via-black to-black "
+							className=" object-cover"
 						/>
 					</div>
 				</div>
