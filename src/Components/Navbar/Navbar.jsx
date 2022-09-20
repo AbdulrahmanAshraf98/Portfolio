@@ -53,7 +53,9 @@ const Navbar = () => {
 													: ""
 											}`}
 											key={link.id}>
-											<a href={`#${link.name}`}>{link.name}</a>
+											<a href={`#${link.name}`} onClick={toggleNav}>
+												{link.name}
+											</a>
 										</li>
 									))}
 									<li
