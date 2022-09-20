@@ -35,16 +35,17 @@
   .timeline{
     @apply
       relative
-      border-l-4 border-gray-200
+      border-l-4 border-gray-500
       py-8
   }
   .dot{
     @apply
       absolute top-6 -left-3.5
-      bg-blue-400
+      bg-black
       h-6 w-6
       rounded-full
-      border-4 border-white
+      border-4 border-gray-500
+      
   }
   .timeline-date{
     @apply 
