@@ -27,21 +27,21 @@ const ProjectCardItem = ({ project }) => {
 			</div>
 			<div className="project__item__links w-full flex justify-center items-center gap-4 border-t-2 border-gray-500 mt-auto">
 				<a
-					className="w-1/3 px-4 py-3 text-base cursor-pointer"
+					className="block w-1/3 px-4 py-3 text-base cursor-pointer"
 					href={project.livePreview__Url}
 					target="_blank"
 					rel="noopener noreferrer">
 					Live
 				</a>
 				<a
-					className="w-1/3 px-4 py-3 text-base cursor-pointer"
+					className="block w-1/3 px-4 py-3 text-base align-middle cursor-pointer"
 					href={project.github__Url}
 					target="_blank"
 					rel="noopener noreferrer">
 					Code
 				</a>
 				<a
-					className="w-1/3 px-4 py-3 text-base cursor-pointer"
+					className="block w-1/3 px-4 py-3 text-base align-right cursor-pointer"
 					href={project.video__Url}
 					target="_blank"
 					rel="noopener noreferrer">
