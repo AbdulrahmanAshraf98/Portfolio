@@ -6,6 +6,8 @@ import MovieApp from "../../../../assets/Movie-App.webp";
 import MovieAppLazy from "../../../../assets/Movie-AppLazy.webp";
 import Forkfiy from "../../../../assets/forkify.webp";
 import ForkfiyLazy from "../../../../assets/forkifyLazy.webp";
+import Mapty from "../../../../assets/mapty.webp";
+import MaptyLazy from "../../../../assets/maptyLazy.webp";
 import IDemy from "../../../../assets/idemy.webp";
 import IDemyLazy from "../../../../assets/idemyLazy.webp";
 import Planteo from "../../../../assets/planteo.webp";
@@ -84,12 +86,25 @@ export const PROJECTS__DATA = [
 		name: "Forkify Recipe Website",
 		image__Src: Forkfiy,
 		lazyImage__Src: ForkfiyLazy,
-		livePreview__Url: "https://template-four.vercel.app/",
-		github__Url: "https://github.com/AbdulrahmanAshraf98/template-four",
+		livePreview__Url: "https://forkify-project-two.vercel.app/",
+		github__Url: "https://github.com/AbdulrahmanAshraf98/forkifyProject",
+		video__Url:
+			"https://drive.google.com/file/d/1MStBVkjJvgcPFMBAZnm3l_WG_neYYLp1/view",
+
+		technologies: ["Js", "Sass", "Api"],
+		categories: ["Js"],
+	},
+	{
+		id: "pd-m4",
+		name: "Mapty",
+		image__Src: Mapty,
+		lazyImage__Src: MaptyLazy,
+		livePreview__Url: "https://mapty-app-seven.vercel.app/",
+		github__Url: "https://github.com/AbdulrahmanAshraf98/MaptyApp",
 		video__Url:
 			"https://drive.google.com/file/d/1odZQnTPg_mECg8wqYS3arTODXZHc-ljI/view?usp=sharing ",
 
-		technologies: ["Js", "Sass", "Api"],
+		technologies: ["Js", "Api"],
 		categories: ["Js"],
 	},
 	{
