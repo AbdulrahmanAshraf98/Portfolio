@@ -34,14 +34,14 @@ const ProjectCardItem = ({ project }) => {
 					Live
 				</a>
 				<a
-					className="block w-1/3 px-4 py-3 text-base align-middle cursor-pointer"
+					className="block w-1/3 px-4 py-3 text-base text-center cursor-pointer"
 					href={project.github__Url}
 					target="_blank"
 					rel="noopener noreferrer">
 					Code
 				</a>
 				<a
-					className="block w-1/3 px-4 py-3 text-base align-right cursor-pointer"
+					className="block w-1/3 px-4 py-3 text-base text-right cursor-pointer"
 					href={project.video__Url}
 					target="_blank"
 					rel="noopener noreferrer">
