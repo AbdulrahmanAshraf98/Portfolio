@@ -102,7 +102,7 @@ export const PROJECTS__DATA = [
 		livePreview__Url: "https://mapty-app-seven.vercel.app/",
 		github__Url: "https://github.com/AbdulrahmanAshraf98/MaptyApp",
 		video__Url:
-			"https://drive.google.com/file/d/1odZQnTPg_mECg8wqYS3arTODXZHc-ljI/view?usp=sharing ",
+			"https://drive.google.com/file/d/1jH7rFoVzp4GaIb_xNj7dvgnHCIux568X/view?usp=sharing",
 
 		technologies: ["Js", "Api"],
 		categories: ["Js"],
