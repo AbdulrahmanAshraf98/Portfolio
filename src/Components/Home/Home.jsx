@@ -8,7 +8,7 @@ const Home = () => {
 		<section
 			id="Home"
 			className="hero-section text-5xl text-gray-800 w-full  bg-gradient-to-b from-black via-black to-gray-800  h-100 py-8 md:py-16 ">
-			<div class="container m-auto px-8 lg:px-16   h-full">
+			<div className="container m-auto px-8 lg:px-16   h-full">
 				<div className="flex flex-wrap justify-between items-center h-full">
 					<div className="hero-section__content w-full md:w-6/12  text-gray-200 flex flex-col justify-center  order-2 md:order-1">
 						<h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold ">
@@ -24,7 +24,7 @@ const Home = () => {
 								href="#Portfolio"
 								className="group text-lg sm:text-xl text-white w-fit px-3 sm:px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-r from-cyan-500 to-blue-500 cursor-pointer">
 								Portfolio
-								<span class="group-hover:rotate-90 duration-300">
+								<span className="group-hover:rotate-90 duration-300">
 									<MdKeyboardArrowRight size={25} />
 								</span>
 							</a>

@@ -10,7 +10,7 @@ const Skills = () => {
 			<div className="container  m-auto h-full px-8  lg:px-16 ">
 				<div className="flex items-center">
 					<div className="skills__content w-full">
-						<div class="skills__content__title mb-12">
+						<div className="skills__content__title mb-12">
 							<h3 className="text-4xl font-bold inline border-b-4 border-gray-500">
 								Skills
 							</h3>
