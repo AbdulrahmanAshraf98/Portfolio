@@ -3,9 +3,9 @@ self.addEventListener("activate", (activateEvent) => {
 	activateEvent.waitUntil(
 		caches.keys().then((keys) => {
 			return Promise.all(
-				keys.filter((key) =>
-					(key !== cacheName).map((key) => caches.delete(key)),
-				),
+				keys
+					.filter((key) => key !== cacheName)
+					.map((key) => caches.delete(key)),
 			);
 		}),
 	);
