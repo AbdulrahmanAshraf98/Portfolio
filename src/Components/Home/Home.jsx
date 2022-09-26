@@ -29,7 +29,7 @@ const Home = () => {
 								</span>
 							</a>
 							<a
-								href="https://drive.google.com/file/d/1sH2p0cL4JNsoGgraF_zuOYBk2qHikslY/view?usp=sharing"
+								href="https://drive.google.com/file/d/19F18VjW9vtTbOsqZdt-jmghjUPnV6QXf/view?usp=sharing"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="group text-lg sm:text-xl text-white w-fit px-10 py-3 my-2 flex items-center rounded-md bg-gradient-to-r from-blue-500 via-blue-500 to-cyan-500 cursor-pointer">
