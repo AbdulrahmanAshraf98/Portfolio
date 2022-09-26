@@ -1,3 +1,5 @@
+import PortfolioWebsite from "../../../../assets/Portfolio.webp";
+import PortfolioWebsiteLazy from "../../../../assets/PortfolioLazy.webp";
 import YoutubeClone from "../../../../assets/YoutubeClone.webp";
 import YoutubeCloneLazy from "../../../../assets/YoutubeCloneLazy.webp";
 import CrownCloths from "../../../../assets/Crow-Clothes.webp";
@@ -21,6 +23,19 @@ import AnimeLazy from "../../../../assets/AnimeLazy.webp";
 import Bakery from "../../../../assets/Bakery.webp";
 import BakeryLazy from "../../../../assets/BakeryLazy.webp";
 export const PROJECTS__DATA = [
+	{
+		id: "PR-1",
+		name: "Personal Portfolio",
+		image__Src: PortfolioWebsite,
+		lazyImage__Src: PortfolioWebsiteLazy,
+		livePreview__Url: "https://portfolio-mauve-gamma-79.vercel.app/",
+		github__Url: "https://github.com/AbdulrahmanAshraf98/Portfolio",
+		video__Url:
+			"https://drive.google.com/file/d/1S8GMcAl5Jb5PlgZRZzo_2AhSrTZ5hVbf/view?usp=sharing",
+
+		technologies: ["React JS", "Tailwind Css", "PWA"],
+		categories: ["React Js", "Tailwind Css"],
+	},
 	{
 		id: "pd-1",
 		name: "Youtube-Clone",
