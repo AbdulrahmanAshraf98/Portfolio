@@ -42,9 +42,10 @@ export const PROJECTS__DATA = [
 		image__Src: YoutubeClone,
 		lazyImage__Src: YoutubeCloneLazy,
 		livePreview__Url: "https://youtube-clone-react-mu.vercel.app/",
-		github__Url: "https://github.com/AbdulrahmanAshraf98/template-four",
+		github__Url:
+			"https://github.com/AbdulrahmanAshraf98/Youtube-Clone-React-MU",
 		video__Url:
-			"https://drive.google.com/file/d/1odZQnTPg_mECg8wqYS3arTODXZHc-ljI/view?usp=sharing ",
+			"https://drive.google.com/file/d/1GDlJdNgYhuiL3MZpk_jp5g_5ToB2B1RH/view",
 
 		technologies: [
 			"React JS",
