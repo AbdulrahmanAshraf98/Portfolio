@@ -86,12 +86,14 @@ export const PROJECTS__DATA = [
 		livePreview__Url: "https://movie-app-six-xi.vercel.app/",
 		github__Url: "https://github.com/AbdulrahmanAshraf98/movie-app",
 		video__Url:
-			"https://drive.google.com/file/d/14gLw8uL-wXQCFWqux__LmJkU7O2--G5r/view",
+			"https://www.youtube.com/watch?v=BoFvjVI9ojU&feature=youtu.be&ab_channel=AbdulrahmanAshraf",
 
 		technologies: [
 			"React JS",
 			"Firebase",
 			"Tmdb-Api",
+			"React Redux",
+			"Redux-Thunk",
 			"React-Context Api",
 			"React-Router-Dom",
 		],
