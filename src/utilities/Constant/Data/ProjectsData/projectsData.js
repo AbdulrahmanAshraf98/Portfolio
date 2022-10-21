@@ -6,6 +6,8 @@ import CrownCloths from "../../../../assets/Crow-Clothes.webp";
 import CrownClothsLazy from "../../../../assets/Crow-ClothesLazy.webp";
 import MovieApp from "../../../../assets/Movie-App.webp";
 import MovieAppLazy from "../../../../assets/Movie-AppLazy.webp";
+import JsECommerce from "../../../../assets/JsE-CommerceApp.webp";
+import JsECommerceLazy from "../../../../assets/JsE-CommerceAppLazy.webp";
 import Forkfiy from "../../../../assets/forkify.webp";
 import ForkfiyLazy from "../../../../assets/forkifyLazy.webp";
 import Mapty from "../../../../assets/mapty.webp";
@@ -23,6 +25,27 @@ import AnimeLazy from "../../../../assets/AnimeLazy.webp";
 import Bakery from "../../../../assets/Bakery.webp";
 import BakeryLazy from "../../../../assets/BakeryLazy.webp";
 export const PROJECTS__DATA = [
+	{
+		id: "pd-3",
+		name: "Movie App",
+		image__Src: MovieApp,
+		lazyImage__Src: MovieAppLazy,
+		livePreview__Url: "https://movie-app-six-xi.vercel.app/",
+		github__Url: "https://github.com/AbdulrahmanAshraf98/movie-app",
+		video__Url:
+			"https://www.youtube.com/watch?v=kjDcGwcrmCQ&t=106s&ab_channel=AbdulrahmanAshraf",
+
+		technologies: [
+			"React JS",
+			"Firebase",
+			"Tmdb-Api",
+			"React Redux",
+			"Redux-Thunk",
+			"React-Context Api",
+			"React-Router-Dom",
+		],
+		categories: ["React Js"],
+	},
 	{
 		id: "PR-1",
 		name: "Personal Portfolio",
@@ -78,26 +101,20 @@ export const PROJECTS__DATA = [
 		],
 		categories: ["React Js"],
 	},
-	{
-		id: "pd-3",
-		name: "Movie App",
-		image__Src: MovieApp,
-		lazyImage__Src: MovieAppLazy,
-		livePreview__Url: "https://movie-app-six-xi.vercel.app/",
-		github__Url: "https://github.com/AbdulrahmanAshraf98/movie-app",
-		video__Url:
-			"https://www.youtube.com/watch?v=BoFvjVI9ojU&feature=youtu.be&ab_channel=AbdulrahmanAshraf",
 
-		technologies: [
-			"React JS",
-			"Firebase",
-			"Tmdb-Api",
-			"React Redux",
-			"Redux-Thunk",
-			"React-Context Api",
-			"React-Router-Dom",
-		],
-		categories: ["React Js"],
+	{
+		id: "js-5",
+		name: "E-Commerce Js",
+		image__Src: JsECommerce,
+		lazyImage__Src: JsECommerceLazy,
+		livePreview__Url: "https://e-commerce-vanlia-javascript.vercel.app/",
+		github__Url:
+			"https://github.com/AbdulrahmanAshraf98/e-commerce-Vanlia-Javascript-Tailwind-Css-Wepback",
+		video__Url:
+			"https://drive.google.com/file/d/1lJdqdGk5lJqycDtqaua9nEWRUo6IZLeb/view?usp=sharing",
+
+		technologies: ["Js", "Tailwind Css", "Api"],
+		categories: ["Js", "Tailwind Css"],
 	},
 	{
 		id: "pd-4",
