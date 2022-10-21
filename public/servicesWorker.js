@@ -1,4 +1,4 @@
-const cacheName = "cache-v6";
+const cacheName = "cache-v10";
 self.addEventListener("activate", (activateEvent) => {
 	activateEvent.waitUntil(
 		caches.keys().then((keys) => {
@@ -11,10 +11,13 @@ self.addEventListener("activate", (activateEvent) => {
 	);
 });
 self.addEventListener("fetch", (fetchEvent) => {
+	// check if request is made by chrome extensions or web page
+	// if request is made for web page url must contains http.
+	if (!(evt.request.url.indexOf("http") === 0)) return; // skip the request. if request is not made with http protocol
 	fetchEvent.respondWith(
-		caches.match(fetchEvent.request).then((response) => {
+		caches.match(fetchEvent.request).then((cacheResponse) => {
 			return (
-				response ||
+				cacheResponse ||
 				fetch(fetchEvent.request).then((fetchedRes) => {
 					return caches.open(cacheName).then((cache) => {
 						cache.put(fetchEvent.request, fetchedRes.clone());
