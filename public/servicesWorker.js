@@ -13,7 +13,7 @@ self.addEventListener("activate", (activateEvent) => {
 self.addEventListener("fetch", (fetchEvent) => {
 	// check if request is made by chrome extensions or web page
 	// if request is made for web page url must contains http.
-	if (!(evt.request.url.indexOf("http") === 0)) return; // skip the request. if request is not made with http protocol
+	if (!(fetchEvent.request.url.indexOf("http") === 0)) return; // skip the request. if request is not made with http protocol
 	fetchEvent.respondWith(
 		caches.match(fetchEvent.request).then((cacheResponse) => {
 			return (
@@ -27,4 +27,4 @@ self.addEventListener("fetch", (fetchEvent) => {
 			);
 		}),
 	);
-});
+};);
