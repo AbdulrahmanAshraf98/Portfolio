@@ -40,7 +40,10 @@ export function applySecurityHeaders(app: INestApplication) {
 
 export async function isAllowedGatewayKey(key?: string) {
   const expected = process.env.INTERNAL_API_SECRET;
-  if (!expected) return true;
+  if (!expected) {
+    if (process.env.VERCEL) return false;
+    return true;
+  }
   if (secretsEqual(key, expected)) return true;
   if (!key) return false;
   try {

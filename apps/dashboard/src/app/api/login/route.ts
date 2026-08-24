@@ -56,7 +56,9 @@ export async function POST(request: Request) {
     const hint =
       message === "Request failed"
         ? "Check INTERNAL_API_SECRET and JWT_SECRET on GraphQL + Identity, and IDENTITY_URL on GraphQL."
-        : undefined;
+        : message === "Unauthorized"
+          ? "Check INTERNAL_API_SECRET is identical on dashboard, graphql, and identity, then redeploy graphql."
+          : undefined;
     return NextResponse.json({ error: message, ...(hint ? { hint } : {}) }, { status: 401 });
   }
 

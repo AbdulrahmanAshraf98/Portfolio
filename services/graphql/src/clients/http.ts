@@ -10,6 +10,9 @@ async function request<T>(baseUrl: string, path: string, init: RequestInit = {})
   });
   const text = await response.text();
   if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      throw new Error("Forbidden");
+    }
     throw new Error(text || `Request failed ${response.status}`);
   }
   return text ? (JSON.parse(text) as T) : ({} as T);
