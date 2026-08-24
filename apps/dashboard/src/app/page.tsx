@@ -190,16 +190,18 @@ export default function DashboardPage() {
   );
 
   async function persistOrder(next: Record<string, unknown>[]) {
-    const previous = new Map(orderedItems.map((item) => [String(item.id), Number(item.sortOrder ?? 0)]));
-    const ranked = next.map((item, index) => ({ ...item, sortOrder: index }));
+    const previous = new Map(orderedItems.map((item, index) => [String(item.id ?? index), Number(item.sortOrder ?? index)]));
+    const ranked: Record<string, unknown>[] = next.map((item, index) => ({ ...item, sortOrder: index }));
     setItems(ranked);
     setSavingOrder(true);
     try {
-      for (const [index, item] of ranked.entries()) {
-        if (previous.get(String(item.id)) === index) continue;
+      for (let index = 0; index < ranked.length; index += 1) {
+        const item = ranked[index];
+        const id = String(item.id ?? "");
+        if (!id || previous.get(id) === index) continue;
         await gql(ADMIN_UPDATE, {
           resource,
-          id: String(item.id),
+          id,
           input: { sortOrder: index },
         });
       }
