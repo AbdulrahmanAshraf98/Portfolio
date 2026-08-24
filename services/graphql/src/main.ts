@@ -1,4 +1,7 @@
+import { NestFactory } from "@nestjs/core";
 import { createNestApp } from "./bootstrap";
+
+export { NestFactory };
 
 async function main() {
   const app = await createNestApp();

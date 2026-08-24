@@ -22,8 +22,9 @@ export function CertificatePreview({
   certificates: Certificate[];
   linkedinUrl: string;
 }) {
+  const ordered = [...certificates].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   const [openId, setOpenId] = useState<string | null>(null);
-  const selected = certificates.find((item) => item.id === openId);
+  const selected = ordered.find((item) => item.id === openId);
   const src = selected ? previewSrc(selected) : "";
   const certsUrl = "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/";
 
@@ -34,7 +35,7 @@ export function CertificatePreview({
           Licenses & certifications
         </h2>
         <div className="mt-10 space-y-4 max-w-4xl">
-          {certificates.map((item) => {
+          {ordered.map((item) => {
             const canPreview = Boolean(item.imageUrl || item.fileUrl || item.credentialUrl);
             return (
               <button

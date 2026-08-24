@@ -55,14 +55,18 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+function byOrder<T extends { sortOrder?: number }>(items: T[]) {
+  return [...items].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+}
+
 function renderSection(key: string, data: Portfolio) {
-  const keyProjects = (data.projects ?? []).filter((item) => item.featured);
-  const earlier = (data.projects ?? []).filter((item) => !item.featured);
+  const keyProjects = byOrder((data.projects ?? []).filter((item) => item.featured));
+  const earlier = byOrder((data.projects ?? []).filter((item) => !item.featured));
   switch (key) {
     case "skills":
-      return <Skills key={key} skills={data.skills} />;
+      return <Skills key={key} skills={byOrder(data.skills ?? [])} />;
     case "experience":
-      return <ExperienceList key={key} experiences={data.experiences} />;
+      return <ExperienceList key={key} experiences={byOrder(data.experiences ?? [])} />;
     case "projects":
       return (
         <PortfolioGrid
@@ -73,12 +77,12 @@ function renderSection(key: string, data: Portfolio) {
         />
       );
     case "education":
-      return <EducationList key={key} educations={data.educations} />;
+      return <EducationList key={key} educations={byOrder(data.educations ?? [])} />;
     case "featured":
       return (
         <Featured
           key={key}
-          highlights={data.highlights ?? []}
+          highlights={byOrder(data.highlights ?? [])}
           linkedinUrl="https://www.linkedin.com/in/abdulrahmanashraf98/details/featured/"
         />
       );
@@ -86,7 +90,7 @@ function renderSection(key: string, data: Portfolio) {
       return (
         <CertificatePreview
           key={key}
-          certificates={data.certificates ?? []}
+          certificates={byOrder(data.certificates ?? [])}
           linkedinUrl={data.settings?.linkedinUrl ?? ""}
         />
       );

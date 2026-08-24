@@ -29,6 +29,7 @@ export type Education = {
   school: string;
   dateRange: string;
   details: string[];
+  sortOrder?: number;
 };
 
 export type Skill = {
@@ -56,10 +57,12 @@ export type Project = {
   technologies: string[];
   categories: string[];
   featured: boolean;
+  published?: boolean;
+  sortOrder?: number;
 };
 
-export type SocialLink = { id: string; name: string; url: string };
-export type Contact = { id: string; title: string; info: string };
+export type SocialLink = { id: string; name: string; url: string; sortOrder?: number };
+export type Contact = { id: string; title: string; info: string; sortOrder?: number };
 export type Certificate = {
   id: string;
   title: string;
@@ -68,6 +71,7 @@ export type Certificate = {
   credentialUrl: string;
   imageUrl: string;
   fileUrl: string;
+  sortOrder?: number;
 };
 export type Highlight = {
   id: string;
@@ -78,6 +82,7 @@ export type Highlight = {
   mediaUrl: string;
   fileUrl: string;
   linkUrl: string;
+  sortOrder?: number;
 };
 export type Settings = { signatureText: string; linkedinUrl: string; xUrl: string; sectionOrder?: string[] };
 
