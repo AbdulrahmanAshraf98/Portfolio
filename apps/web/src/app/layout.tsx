@@ -21,7 +21,7 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-gamma.vercel.app"),
   title: "Abdulrhman Ashraf | Senior Backend Software Engineer",
   description:
     "Senior Backend Software Engineer specializing in NestJS, GraphQL, PostgreSQL, and secure microservices in regulated banking environments.",

@@ -60,6 +60,8 @@ export class ExperienceType {
   focus?: string;
   @Field(() => [String])
   bullets: string[];
+  @Field(() => [String], { nullable: true })
+  mediaUrls?: string[];
   @Field()
   sortOrder: number;
 }

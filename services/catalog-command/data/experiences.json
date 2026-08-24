@@ -29,6 +29,9 @@
       "Collaborated closely with frontend and mobile teams to support API integration and feature delivery.",
       "Diagnosed and resolved frontend integration issues, ensuring seamless cross-platform functionality.",
       "Contributed to code reviews, pair programming, and unit/integration testing."
+    ],
+    "mediaUrls": [
+      "/certificates/mahaseel-experience-letter.jpg"
     ]
   },
   {
@@ -54,6 +57,21 @@
       "Developed and maintained high-performance backend systems for internal platforms.",
       "Designed and implemented RESTful APIs to support new product features.",
       "Focused on backend optimization, debugging, and performance improvements."
+    ]
+  },
+  {
+    "id": "exp-5",
+    "sortOrder": 4,
+    "jobTitle": "Software Engineer (Fullstack) Intern",
+    "company": "Orange Digital Center Egypt",
+    "dateRange": "Jun 2021 – Aug 2021",
+    "bullets": [
+      "Completed a two-month fullstack engineering internship with the Orange Digital Center Egypt team.",
+      "Built practical software engineering skills through hands-on project work and mentorship.",
+      "Collaborated with engineers and peers across training and delivery activities."
+    ],
+    "mediaUrls": [
+      "/certificates/odc-internship.jpg"
     ]
   }
 ]

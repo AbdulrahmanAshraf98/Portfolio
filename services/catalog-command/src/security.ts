@@ -12,7 +12,7 @@ export function secretsEqual(provided?: string, expected?: string) {
 
 export function getAllowedOrigins() {
   const fallback = process.env.VERCEL
-    ? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app,https://aa-dashboard-five.vercel.app,https://aa-dashboard-abdulrahmanashraf98s-projects.vercel.app"
+    ? "https://aa-web-gamma.vercel.app,https://aa-dashboard-five.vercel.app,https://aa-dashboard-abdulrahmanashraf98s-projects.vercel.app"
     : "http://localhost:3000,http://localhost:3004,http://127.0.0.1:3000,http://127.0.0.1:3004";
   return (process.env.ALLOWED_ORIGINS ?? fallback)
     .split(",")

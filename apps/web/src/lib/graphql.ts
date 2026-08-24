@@ -7,7 +7,7 @@ const PORTFOLIO_QUERY = `
       profile {
         id fullName logoText headline summary about location email phone cvUrl imageUrl imageLazyUrl
       }
-      experiences { id jobTitle company dateRange focus bullets sortOrder }
+      experiences { id jobTitle company dateRange focus bullets mediaUrls sortOrder }
       educations { id degree school dateRange details sortOrder }
       skills { id name group iconUrl shadowColor shadowColorHover sortOrder }
       projects { id name slug description company bullets imageUrl lazyImageUrl liveUrl githubUrl videoUrl technologies categories featured published sortOrder }

@@ -8,6 +8,9 @@
     "start": "next start --port 3004"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "next": "^15.4.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

@@ -1,12 +1,37 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { FileField } from "@/components/FileField";
 import { SecurityPanel } from "@/components/SecurityPanel";
+import { SortableList } from "@/components/SortableList";
 import { ADMIN_CREATE, ADMIN_DELETE, ADMIN_LIST, ADMIN_UPDATE, gql } from "@/lib/gql";
 import { RESOURCE_SCHEMA, type Field } from "@/lib/schema";
 
-const RESOURCES = Object.keys(RESOURCE_SCHEMA);
+function webOrigin() {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+  if (fromEnv) return fromEnv;
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") return "http://localhost:3000";
+  }
+  return "https://aa-web-gamma.vercel.app";
+}
+
+function itemThumb(item: Record<string, unknown>) {
+  const firstMedia = Array.isArray(item.mediaUrls) ? String(item.mediaUrls[0] ?? "") : "";
+  const raw = String(item.imageUrl ?? item.mediaUrl ?? item.iconUrl ?? firstMedia ?? "");
+  if (!raw) return "";
+  if (raw.startsWith("/")) return `${webOrigin()}${raw}`;
+  return raw;
+}
+
+const SECTION_KEYS = ["skills", "experience", "projects", "education", "featured", "certificates", "earlier"];
+
+const NAV = [
+  { group: "Site", items: ["profiles", "highlights", "settings"] },
+  { group: "CV", items: ["experiences", "educations", "skills", "projects"] },
+  { group: "More", items: ["certificates", "socials", "contacts"] },
+];
 
 function emptyFrom(fields: Field[]) {
   return Object.fromEntries(
@@ -39,7 +64,15 @@ function fromFormValue(field: Field, value: unknown) {
   return value;
 }
 
-const SECTION_KEYS = ["skills", "experience", "projects", "education", "featured", "certificates", "earlier"];
+function itemTitle(item: Record<string, unknown>) {
+  return String(
+    item.name ?? item.fullName ?? item.jobTitle ?? item.degree ?? item.title ?? item.signatureText ?? "Untitled",
+  );
+}
+
+function itemMeta(item: Record<string, unknown>) {
+  return String(item.company ?? item.issuer ?? item.school ?? item.subtitle ?? item.group ?? item.headline ?? "");
+}
 
 function SectionOrderField({
   value,
@@ -48,37 +81,57 @@ function SectionOrderField({
   value: unknown;
   onChange: (next: string[]) => void;
 }) {
-  const items = (Array.isArray(value) ? value.map(String) : String(value ?? "").split("\n"))
-    .map((item) => item.trim())
-    .filter(Boolean);
-  const ordered = items.length ? items : SECTION_KEYS;
-
-  function move(index: number, direction: -1 | 1) {
-    const next = index + direction;
-    if (next < 0 || next >= ordered.length) return;
-    const copy = [...ordered];
-    [copy[index], copy[next]] = [copy[next], copy[index]];
-    onChange(copy);
-  }
+  const ordered = useMemo(() => {
+    const items = (Array.isArray(value) ? value.map(String) : String(value ?? "").split("\n"))
+      .map((item) => item.trim())
+      .filter(Boolean);
+    return items.length ? items : SECTION_KEYS;
+  }, [value]);
 
   return (
-    <ol className="mt-2 space-y-2">
-      {ordered.map((key, index) => (
-        <li key={key} className="flex items-center justify-between rounded-md border border-gray-800 px-3 py-2">
-          <span>
-            {index + 1}. {key}
-          </span>
-          <span className="space-x-3">
-            <button type="button" disabled={index === 0} onClick={() => move(index, -1)}>
-              Up
-            </button>
-            <button type="button" disabled={index === ordered.length - 1} onClick={() => move(index, 1)}>
-              Down
-            </button>
-          </span>
-        </li>
-      ))}
-    </ol>
+    <div className="mt-2">
+      <SortableList
+        items={ordered}
+        getId={(item) => item}
+        onReorder={onChange}
+        renderItem={(item, handle) => (
+          <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-zinc-950/60 px-2 py-2">
+            {handle}
+            <span className="text-sm capitalize text-zinc-200">{item}</span>
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+
+function NavIcon({ name }: { name: string }) {
+  const className = "h-4 w-4";
+  if (name === "profiles") {
+    return (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm8 9a8 8 0 1 0-16 0" />
+      </svg>
+    );
+  }
+  if (name === "highlights") {
+    return (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 3 14.5 9.5 21 12 14.5 14.5 12 21 9.5 14.5 3 12 9.5 9.5 12 3Z" />
+      </svg>
+    );
+  }
+  if (name === "security") {
+    return (
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 3 20 7v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4Z" />
+      </svg>
+    );
+  }
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <path d="M4 6h16M4 12h16M4 18h10" />
+    </svg>
   );
 }
 
@@ -89,21 +142,27 @@ export default function DashboardPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
+  const loadId = useRef(0);
   const schema = resource === "security" ? null : RESOURCE_SCHEMA[resource];
+  const visibleFields = schema?.fields.filter((field) => !field.hidden) ?? [];
 
   async function load(next = resource) {
+    const id = ++loadId.current;
     setBusy(true);
     setError("");
     try {
       const data = await gql<{ adminList: Record<string, unknown>[] }>(ADMIN_LIST, { resource: next });
+      if (id !== loadId.current) return;
       setItems(Array.isArray(data.adminList) ? data.adminList : []);
     } catch (err) {
+      if (id !== loadId.current) return;
       setError(err instanceof Error ? err.message : "Load failed");
       if (String(err).toLowerCase().includes("unauthor") || String(err).toLowerCase().includes("forbidden")) {
         window.location.href = "/login";
       }
     } finally {
-      setBusy(false);
+      if (id === loadId.current) setBusy(false);
     }
   }
 
@@ -113,6 +172,7 @@ export default function DashboardPage() {
     void load(resource);
     setEditingId(null);
     setForm(emptyFrom(RESOURCE_SCHEMA[resource].fields));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resource]);
 
   useEffect(() => {
@@ -129,23 +189,26 @@ export default function DashboardPage() {
     [items],
   );
 
-  async function move(index: number, direction: -1 | 1) {
-    if (!schema || schema.singleton) return;
-    const next = index + direction;
-    if (next < 0 || next >= orderedItems.length) return;
-    const current = orderedItems[index];
-    const other = orderedItems[next];
-    await gql(ADMIN_UPDATE, {
-      resource,
-      id: String(current.id),
-      input: { sortOrder: Number(other.sortOrder ?? next) },
-    });
-    await gql(ADMIN_UPDATE, {
-      resource,
-      id: String(other.id),
-      input: { sortOrder: Number(current.sortOrder ?? index) },
-    });
-    await load();
+  async function persistOrder(next: Record<string, unknown>[]) {
+    const previous = new Map(orderedItems.map((item) => [String(item.id), Number(item.sortOrder ?? 0)]));
+    const ranked = next.map((item, index) => ({ ...item, sortOrder: index }));
+    setItems(ranked);
+    setSavingOrder(true);
+    try {
+      for (const [index, item] of ranked.entries()) {
+        if (previous.get(String(item.id)) === index) continue;
+        await gql(ADMIN_UPDATE, {
+          resource,
+          id: String(item.id),
+          input: { sortOrder: index },
+        });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Reorder failed");
+      await load();
+    } finally {
+      setSavingOrder(false);
+    }
   }
 
   function startEdit(item: Record<string, unknown>) {
@@ -163,6 +226,9 @@ export default function DashboardPage() {
       const input: Record<string, unknown> = {};
       for (const field of schema.fields) {
         input[field.key] = fromFormValue(field, form[field.key]);
+      }
+      if (!editingId && !schema.singleton) {
+        input.sortOrder = orderedItems.length;
       }
       if (editingId && !schema.singleton) {
         await gql(ADMIN_UPDATE, { resource, id: editingId, input });
@@ -184,167 +250,266 @@ export default function DashboardPage() {
 
   async function remove(id: string) {
     await gql(ADMIN_DELETE, { resource, id });
+    if (editingId === id) {
+      setEditingId(null);
+      setForm(emptyFrom(schema?.fields ?? []));
+    }
     await load();
   }
 
-  return (
-    <main className="min-h-screen">
-      <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <div>
-          <p className="text-xl italic font-serif text-cyan-400">AS</p>
-          <p className="text-sm text-gray-500">Dynamic content for the public site</p>
+  function renderField(field: Field) {
+    if (field.key === "sectionOrder") {
+      return (
+        <SectionOrderField
+          value={form[field.key]}
+          onChange={(next) => setForm((current) => ({ ...current, [field.key]: next }))}
+        />
+      );
+    }
+    if (field.type === "textarea" || field.type === "list") {
+      return (
+        <textarea
+          className="mt-1.5 w-full min-h-24 rounded-xl border border-white/10 bg-black/40 px-3 py-2 outline-none ring-cyan-400/30 focus:border-cyan-500/40 focus:ring-2"
+          value={String(toFormValue(field, form[field.key]))}
+          onChange={(event) => setForm((current) => ({ ...current, [field.key]: event.target.value }))}
+        />
+      );
+    }
+    if (field.type === "boolean") {
+      return (
+        <input
+          type="checkbox"
+          className="mt-2 h-4 w-4 accent-cyan-400"
+          checked={Boolean(form[field.key])}
+          onChange={(event) => setForm((current) => ({ ...current, [field.key]: event.target.checked }))}
+        />
+      );
+    }
+    if (field.type === "file") {
+      return (
+        <FileField
+          value={String(form[field.key] ?? "")}
+          accept={field.accept}
+          onChange={(url) => setForm((current) => ({ ...current, [field.key]: url }))}
+        />
+      );
+    }
+    return (
+      <input
+        className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2 outline-none ring-cyan-400/30 focus:border-cyan-500/40 focus:ring-2"
+        type="text"
+        value={String(form[field.key] ?? "")}
+        onChange={(event) => setForm((current) => ({ ...current, [field.key]: event.target.value }))}
+      />
+    );
+  }
+
+  function listCard(item: Record<string, unknown>, handle: ReactNode) {
+    const thumb = itemThumb(item);
+    const selected = editingId === String(item.id ?? "singleton");
+    return (
+      <div
+        className={`flex min-w-0 items-center gap-3 rounded-2xl border px-2 py-2.5 ${
+          selected ? "border-cyan-500/40 bg-cyan-950/30" : "border-white/10 bg-zinc-950/50"
+        }`}
+      >
+        {schema?.singleton ? null : handle}
+        {thumb ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={thumb} alt="" className="h-12 w-12 shrink-0 rounded-lg object-cover" />
+        ) : (
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm font-semibold text-cyan-300">
+            {itemTitle(item).slice(0, 1).toUpperCase()}
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-medium text-white">{itemTitle(item)}</p>
+          {itemMeta(item) ? <p className="truncate text-xs text-zinc-500">{itemMeta(item)}</p> : null}
         </div>
-        <div className="flex items-center gap-4">
-          <a href={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app"}/cv`} target="_blank" rel="noreferrer" className="text-sm text-cyan-400">
-            Generate CV
-          </a>
+        <div className="flex shrink-0 items-center gap-2 pr-2">
           <button
-            className="text-sm text-gray-400"
-            onClick={async () => {
-              await fetch("/api/logout", { method: "POST" });
-              window.location.href = "/login";
-            }}
+            type="button"
+            onClick={() => startEdit(item)}
+            className="rounded-lg px-3 py-1.5 text-xs text-zinc-300 hover:bg-white/10"
           >
-            Logout
+            Edit
           </button>
-        </div>
-      </header>
-      <div className="grid lg:grid-cols-[220px_1fr] gap-6 p-6">
-        <aside className="space-y-2">
-          {RESOURCES.map((item) => (
+          {schema?.singleton ? null : (
             <button
-              key={item}
-              onClick={() => setResource(item)}
-              className={`block w-full text-left px-4 py-2 rounded-md ${
-                resource === item ? "bg-cyan-800 text-white" : "bg-gray-900"
-              }`}
+              type="button"
+              className="rounded-lg px-3 py-1.5 text-xs text-red-400 hover:bg-red-950/50"
+              onClick={() => void remove(String(item.id))}
             >
-              {RESOURCE_SCHEMA[item].label}
+              Delete
             </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex min-h-screen overflow-x-hidden">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-white/10 bg-zinc-950/70 px-4 py-6 backdrop-blur-xl xl:flex">
+        <div className="px-2">
+          <p className="font-serif text-3xl italic text-cyan-400">AS</p>
+          <p className="mt-1 text-[11px] uppercase tracking-[0.24em] text-zinc-500">Dashboard</p>
+        </div>
+        <nav className="mt-8 flex-1 space-y-6 overflow-auto">
+          {NAV.map((group) => (
+            <div key={group.group}>
+              <p className="px-3 text-[11px] uppercase tracking-[0.2em] text-zinc-600">{group.group}</p>
+              <div className="mt-2 space-y-1">
+                {group.items.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => setResource(item)}
+                    className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+                      resource === item ? "bg-cyan-500/15 text-cyan-200" : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    <NavIcon name={item} />
+                    {RESOURCE_SCHEMA[item].label}
+                  </button>
+                ))}
+              </div>
+            </div>
           ))}
           <button
+            type="button"
             onClick={() => setResource("security")}
-            className={`block w-full text-left px-4 py-2 rounded-md ${
-              resource === "security" ? "bg-cyan-800 text-white" : "bg-gray-900"
+            className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+              resource === "security" ? "bg-cyan-500/15 text-cyan-200" : "text-zinc-400 hover:bg-white/5 hover:text-white"
             }`}
           >
+            <NavIcon name="security" />
             Security
           </button>
-        </aside>
-        <section className="space-y-6">
+        </nav>
+        <button
+          type="button"
+          className="mt-4 rounded-xl px-3 py-2 text-left text-sm text-zinc-500 hover:bg-white/5 hover:text-white"
+          onClick={async () => {
+            await fetch("/api/logout", { method: "POST" });
+            window.location.href = "/login";
+          }}
+        >
+          Sign out
+        </button>
+      </aside>
+
+      <div className="min-w-0 flex-1">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/10 bg-[#07090f]/80 px-4 py-4 backdrop-blur-xl lg:px-8">
+          <div>
+            <h1 className="text-xl font-semibold text-white">{title}</h1>
+            <p className="text-xs text-zinc-500">
+              {schema?.singleton ? "One record for the public site" : "Drag the handle to change order"}
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href={`${webOrigin()}/cv`}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl border border-white/10 px-3 py-2 text-xs text-cyan-300 hover:bg-white/5"
+            >
+              Open CV
+            </a>
+            <a
+              href={webOrigin()}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-3 py-2 text-xs font-semibold text-black"
+            >
+              View site
+            </a>
+          </div>
+        </header>
+
+        <div className="flex gap-2 overflow-x-auto border-b border-white/10 px-4 py-3 xl:hidden">
+          {[...NAV.flatMap((group) => group.items), "security"].map((item) => (
+            <button
+              key={item}
+              type="button"
+              onClick={() => setResource(item)}
+              className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs ${
+                resource === item ? "bg-cyan-500/20 text-cyan-200" : "bg-white/5 text-zinc-400"
+              }`}
+            >
+              {item === "security" ? "Security" : RESOURCE_SCHEMA[item].label}
+            </button>
+          ))}
+        </div>
+
+        <section className="space-y-6 p-4 lg:p-8">
+          {error ? <p className="rounded-xl border border-red-500/30 bg-red-950/40 px-4 py-3 text-sm text-red-300">{error}</p> : null}
           {resource === "security" ? <SecurityPanel /> : null}
           {resource !== "security" && schema ? (
-            <>
-          <h1 className="text-2xl font-semibold">{title}</h1>
-          {error ? <p className="text-red-400">{error}</p> : null}
-          <div className="overflow-auto rounded-xl border border-gray-800">
-            <table className="w-full text-sm">
-              <thead className="bg-gray-900 text-gray-400">
-                <tr>
-                  <th className="text-left p-3">Item</th>
-                  <th className="p-3"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {orderedItems.map((item, index) => (
-                  <tr key={String(item.id ?? item.fullName ?? item.signatureText)} className="border-t border-gray-800">
-                    <td className="p-3">
-                      {String(
-                        item.name ??
-                          item.fullName ??
-                          item.jobTitle ??
-                          item.degree ??
-                          item.title ??
-                          item.signatureText ??
-                          "",
-                      )}
-                    </td>
-                    <td className="p-3 text-right space-x-3">
-                      {schema.singleton ? null : (
-                        <>
-                          <button disabled={index === 0} onClick={() => void move(index, -1)}>
-                            Up
-                          </button>
-                          <button disabled={index === orderedItems.length - 1} onClick={() => void move(index, 1)}>
-                            Down
-                          </button>
-                        </>
-                      )}
-                      <button onClick={() => startEdit(item)}>Edit</button>
-                      {schema.singleton ? null : (
-                        <button className="text-red-400" onClick={() => void remove(String(item.id))}>
-                          Delete
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {busy ? <p className="p-4 text-gray-500">Loading...</p> : null}
-          </div>
-          <div className="rounded-xl border border-gray-800 p-5 space-y-4">
-            <h2 className="font-semibold">{editingId ? "Edit" : "Create"} {title.toLowerCase()}</h2>
-            {schema.fields.map((field) => (
-              <label key={field.key} className="block text-sm">
-                <span className="text-gray-400">{field.label}</span>
-                {field.key === "sectionOrder" ? (
-                  <SectionOrderField
-                    value={form[field.key]}
-                    onChange={(next) => setForm((current) => ({ ...current, [field.key]: next }))}
-                  />
-                ) : field.type === "textarea" || field.type === "list" ? (
-                  <textarea
-                    className="mt-1 w-full rounded-md bg-black border border-gray-800 px-3 py-2 min-h-24"
-                    value={String(toFormValue(field, form[field.key]))}
-                    onChange={(event) => setForm((current) => ({ ...current, [field.key]: event.target.value }))}
-                  />
-                ) : field.type === "boolean" ? (
-                  <input
-                    type="checkbox"
-                    className="mt-2 ml-3"
-                    checked={Boolean(form[field.key])}
-                    onChange={(event) => setForm((current) => ({ ...current, [field.key]: event.target.checked }))}
-                  />
-                ) : field.type === "file" ? (
-                  <FileField
-                    value={String(form[field.key] ?? "")}
-                    accept={field.accept}
-                    onChange={(url) => setForm((current) => ({ ...current, [field.key]: url }))}
-                  />
+            <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
+              <div>
+                {schema.singleton ? null : (
+                  <p className="mb-3 text-xs text-zinc-500">
+                    {savingOrder ? "Saving order..." : "Grab the six dots and drop where you want it."}
+                  </p>
+                )}
+                {schema.singleton ? (
+                  <div className="space-y-2">{orderedItems.map((item) => <div key={String(item.id)}>{listCard(item, null)}</div>)}</div>
                 ) : (
-                  <input
-                    className="mt-1 w-full rounded-md bg-black border border-gray-800 px-3 py-2"
-                    type={field.type === "number" ? "number" : "text"}
-                    value={String(form[field.key] ?? "")}
-                    onChange={(event) =>
-                      setForm((current) => ({
-                        ...current,
-                        [field.key]: field.type === "number" ? Number(event.target.value) : event.target.value,
-                      }))
-                    }
+                  <SortableList
+                    items={orderedItems}
+                    getId={(item) => String(item.id)}
+                    onReorder={(next) => void persistOrder(next)}
+                    disabled={savingOrder}
+                    renderItem={listCard}
                   />
                 )}
-              </label>
-            ))}
-            <div className="flex gap-3">
-              <button onClick={() => void save()} className="px-5 py-2 rounded-md bg-gradient-to-r from-cyan-500 to-blue-500">
-                Save
-              </button>
-              <button
-                onClick={() => {
-                  setEditingId(null);
-                  setForm(emptyFrom(schema.fields));
-                }}
-              >
-                Reset
-              </button>
+                {busy ? <p className="mt-4 text-sm text-zinc-500">Loading...</p> : null}
+                {!busy && !orderedItems.length ? (
+                  <p className="rounded-2xl border border-dashed border-white/10 px-6 py-12 text-center text-sm text-zinc-500">
+                    Nothing here yet. Create the first item.
+                  </p>
+                ) : null}
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-zinc-950/50 p-5 shadow-[0_0_60px_rgba(8,145,178,0.08)]">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-semibold text-white">
+                    {editingId && !schema.singleton ? "Edit" : schema.singleton ? "Edit" : "New"} {title.toLowerCase()}
+                  </h2>
+                  {schema.singleton ? null : (
+                    <button
+                      type="button"
+                      className="text-xs text-zinc-500 hover:text-white"
+                      onClick={() => {
+                        setEditingId(null);
+                        setForm(emptyFrom(schema.fields));
+                      }}
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+                <div className="mt-5 space-y-4">
+                  {visibleFields.map((field) => (
+                    <label key={field.key} className="block text-sm">
+                      <span className="text-zinc-400">{field.label}</span>
+                      {renderField(field)}
+                    </label>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void save()}
+                  className="mt-6 w-full rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 py-2.5 font-semibold text-black"
+                >
+                  Save
+                </button>
+              </div>
             </div>
-            </div>
-            </>
           ) : null}
         </section>
       </div>
-    </main>
+    </div>
   );
 }

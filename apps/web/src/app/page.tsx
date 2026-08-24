@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Contact, EducationList, ExperienceList, Featured, Skills } from "@/components/Sections";
+import { Contact, EducationList, ExperienceList, Skills } from "@/components/Sections";
+import { Featured } from "@/components/Featured";
 import { CertificatePreview } from "@/components/CertificatePreview";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
@@ -9,7 +10,7 @@ import type { Portfolio } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-gamma.vercel.app";
 const DEFAULT_SECTIONS = ["skills", "experience", "projects", "education", "featured", "certificates", "earlier"];
 
 const NAV: Record<string, string> = {

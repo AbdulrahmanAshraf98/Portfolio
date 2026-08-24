@@ -20,6 +20,7 @@ export type Experience = {
   dateRange: string;
   focus?: string;
   bullets: string[];
+  mediaUrls?: string[];
   sortOrder: number;
 };
 

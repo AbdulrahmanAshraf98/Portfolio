@@ -1,18 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { MediaLightbox } from "@/components/MediaLightbox";
 import type { Certificate } from "@/lib/types";
+import { driveThumb, issuerLogo } from "@/lib/credentials";
 
-function isImage(url?: string) {
-  return Boolean(url && /\.(png|jpe?g|gif|webp|svg|avif)(\?|$)/i.test(url));
+function mediaUrl(item: Certificate) {
+  if (item.imageUrl) return item.imageUrl;
+  return driveThumb(item.fileUrl) || driveThumb(item.credentialUrl);
 }
 
-function isPdf(url?: string) {
-  return Boolean(url && /\.pdf(\?|$)/i.test(url));
-}
-
-function previewSrc(item: Certificate) {
-  return item.imageUrl || item.fileUrl || "";
+function Logo({ issuer }: { issuer: string }) {
+  const [failed, setFailed] = useState(false);
+  const logo = failed ? "" : issuerLogo(issuer);
+  const initial = issuer.trim().charAt(0).toUpperCase() || "C";
+  return (
+    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-gray-800 bg-white">
+      {logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={logo}
+          alt=""
+          referrerPolicy="no-referrer"
+          className="h-full w-full object-contain p-1"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-gray-700">{initial}</span>
+      )}
+    </div>
+  );
 }
 
 export function CertificatePreview({
@@ -22,11 +39,33 @@ export function CertificatePreview({
   certificates: Certificate[];
   linkedinUrl: string;
 }) {
-  const ordered = [...certificates].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
-  const [openId, setOpenId] = useState<string | null>(null);
-  const selected = ordered.find((item) => item.id === openId);
-  const src = selected ? previewSrc(selected) : "";
+  const ordered = useMemo(
+    () => [...certificates].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)),
+    [certificates],
+  );
+  const media = useMemo(
+    () =>
+      ordered
+        .map((item) => ({
+          id: item.id,
+          title: `${item.title}.jpg`,
+          description: item.title,
+          mediaUrl: mediaUrl(item),
+        }))
+        .filter((item) => item.mediaUrl),
+    [ordered],
+  );
+  const [index, setIndex] = useState<number | null>(null);
   const certsUrl = "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/";
+
+  function open(item: Certificate) {
+    const next = media.findIndex((entry) => entry.id === item.id);
+    if (next >= 0) {
+      setIndex(next);
+      return;
+    }
+    if (item.credentialUrl) window.open(item.credentialUrl, "_blank", "noreferrer");
+  }
 
   return (
     <section id="Certificates" className="py-12 md:py-16 w-full bg-black text-white">
@@ -34,78 +73,37 @@ export function CertificatePreview({
         <h2 className="text-3xl md:text-4xl font-semibold mt-3 border-b border-gray-800 pb-4">
           Licenses & certifications
         </h2>
-        <div className="mt-10 space-y-4 max-w-4xl">
-          {ordered.map((item) => {
-            const canPreview = Boolean(item.imageUrl || item.fileUrl || item.credentialUrl);
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => canPreview && setOpenId(item.id)}
-                className="w-full text-left border-b border-gray-800 pb-5 hover:border-cyan-500/40"
-              >
-                {item.imageUrl ? (
-                  <div className="mb-4 h-40 overflow-hidden bg-gray-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.imageUrl} alt="" className="h-full w-full object-cover object-top" />
-                  </div>
-                ) : null}
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="text-cyan-400/90 mt-1 text-sm">{item.issuer}</p>
-                {item.issueDate ? <p className="text-xs text-gray-500 mt-1">{item.issueDate}</p> : null}
-                <p className="mt-3 text-sm text-gray-300 underline underline-offset-4">Preview</p>
-              </button>
-            );
-          })}
+        <div className="mt-8 max-w-3xl divide-y divide-gray-800">
+          {ordered.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => open(item)}
+              className="flex w-full gap-4 py-5 text-left hover:bg-white/[0.03]"
+            >
+              <Logo issuer={item.issuer} />
+              <div className="min-w-0 flex-1">
+                <h3 className="text-[17px] font-semibold leading-snug">{item.title}</h3>
+                <p className="mt-0.5 text-[15px] text-gray-300">{item.issuer}</p>
+                {item.issueDate ? <p className="mt-0.5 text-sm text-gray-500">Issued {item.issueDate}</p> : null}
+                <span className="mt-3 inline-flex rounded-full border border-gray-600 px-3 py-1 text-sm text-gray-200">
+                  Show credential
+                </span>
+              </div>
+            </button>
+          ))}
         </div>
         <a
           href={linkedinUrl || certsUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex mt-8 px-5 py-2.5 border border-gray-700 text-sm hover:border-cyan-500/60"
+          className="mt-8 inline-flex text-sm text-cyan-400 hover:underline"
         >
-          LinkedIn certifications
+          View on LinkedIn
         </a>
       </div>
-
-      {selected ? (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setOpenId(null)}>
-          <div
-            className="w-full max-w-3xl max-h-[90vh] overflow-auto bg-gray-950 border border-gray-800 p-5"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-gray-500">{selected.issuer}</p>
-            <h3 className="text-2xl font-semibold mt-2">{selected.title}</h3>
-            {selected.issueDate ? <p className="text-sm text-gray-500 mt-1">{selected.issueDate}</p> : null}
-            <div className="mt-5 bg-black min-h-64 flex items-center justify-center border border-gray-800">
-              {isImage(src) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={src} alt={selected.title} className="max-h-[60vh] w-full object-contain" />
-              ) : isPdf(src) ? (
-                <iframe title={selected.title} src={src} className="w-full h-[60vh] bg-white" />
-              ) : (
-                <p className="text-sm text-gray-400 p-8 text-center">
-                  Upload a certificate image or PDF in the dashboard for an on-site preview.
-                </p>
-              )}
-            </div>
-            <div className="mt-5 flex flex-wrap gap-4 text-sm">
-              {selected.credentialUrl ? (
-                <a href={selected.credentialUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">
-                  Open credential
-                </a>
-              ) : null}
-              {selected.fileUrl ? (
-                <a href={selected.fileUrl} target="_blank" rel="noreferrer" className="text-cyan-400 underline underline-offset-4">
-                  Download file
-                </a>
-              ) : null}
-              <button type="button" className="ml-auto text-gray-400" onClick={() => setOpenId(null)}>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+      {index !== null ? (
+        <MediaLightbox items={media} index={index} onClose={() => setIndex(null)} onIndex={setIndex} />
       ) : null}
     </section>
   );

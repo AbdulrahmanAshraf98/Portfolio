@@ -63,7 +63,44 @@ export class JsonStore {
 
   async hydrate() {
     const blob = await readCatalogBlob();
-    if (blob?.profile) this.replace(blob);
+    if (!blob?.profile) return;
+    const seed = fromSeed();
+    const highlights = blob.highlights ?? [];
+    const staleHighlights =
+      highlights.length !== 3 ||
+      !highlights.some((item) => String(item.mediaUrl ?? "").includes("aaib-milestone")) ||
+      highlights.some((item) => {
+        const title = String(item.title ?? "");
+        const media = String(item.mediaUrl ?? "");
+        return (
+          media.includes("/certificates/") ||
+          ["Personal Portfolio", "Portfolio platform", "Android Development.jpg"].includes(title)
+        );
+      });
+    const seedMediaByCompany = new Map(
+      seed.experiences
+        .filter((item) => item.mediaUrls?.length)
+        .map((item) => [item.company, item.mediaUrls!]),
+    );
+    const stripFeaturedMedia = <T extends { mediaUrls?: string[] }>(item: T) => {
+      const mediaUrls = item.mediaUrls?.filter((url) => !url.includes("/featured/"));
+      if (!mediaUrls?.length) {
+        const { mediaUrls: _removed, ...rest } = item;
+        return rest as T;
+      }
+      return { ...item, mediaUrls };
+    };
+    const experiences = (blob.experiences ?? seed.experiences).map((item) => {
+      const cleaned = stripFeaturedMedia(item);
+      const fromSeed = seedMediaByCompany.get(item.company);
+      if (fromSeed?.length) return { ...cleaned, mediaUrls: fromSeed };
+      return cleaned;
+    });
+    this.replace({
+      ...blob,
+      experiences,
+      highlights: staleHighlights || !highlights.length ? seed.highlights : highlights,
+    });
   }
 
   load(): PortfolioData {

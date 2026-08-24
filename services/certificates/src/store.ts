@@ -24,20 +24,19 @@ const seed: Certificate[] = [
     title: "Microservices: Clean Architecture, DDD, SAGA, Outbox & Kafka",
     issuer: "Udemy",
     issueDate: "Oct 2025",
-    credentialUrl:
-      "https://www.linkedin.com/in/abdulrahmanashraf98/overlay/Certifications/886338116/treasury?profileId=ACoAACwvXBEBnK-yLDowQBsYPawJMBrKCHp1Ows",
-    imageUrl: "",
-    fileUrl: "",
+    credentialUrl: "https://www.udemy.com/certificate/UC-297857f8-c8ac-4b6d-8b24-b23bd5040309/",
+    imageUrl: "/certificates/microservices-udemy.jpg",
+    fileUrl: "/certificates/microservices-udemy.jpg",
     sortOrder: 0,
   },
   {
     id: "cert-2",
     title: "Fundamentals of Database Engineering",
     issuer: "Udemy",
-    issueDate: "Sep 2025",
-    credentialUrl: "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
-    imageUrl: "",
-    fileUrl: "",
+    issueDate: "Oct 2025",
+    credentialUrl: "https://www.udemy.com/certificate/UC-dca0721b-87bf-4773-9164-a4a287147e26/",
+    imageUrl: "/certificates/database-engineering-udemy.jpg",
+    fileUrl: "/certificates/database-engineering-udemy.jpg",
     sortOrder: 1,
   },
   {
@@ -56,27 +55,27 @@ const seed: Certificate[] = [
     issuer: "Metwally Labs",
     issueDate: "Apr 2025",
     credentialUrl: "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
-    imageUrl: "",
-    fileUrl: "",
+    imageUrl: "/certificates/algorithms-metwally.jpg",
+    fileUrl: "/certificates/algorithms-metwally.jpg",
     sortOrder: 3,
   },
   {
     id: "cert-5",
     title: "MEAN Stack Diploma",
     issuer: "Orange Digital Center Egypt",
-    issueDate: "Oct 2022",
+    issueDate: "Jan 2023",
     credentialUrl: "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
-    imageUrl: "",
-    fileUrl: "",
+    imageUrl: "/certificates/mean-stack-orange.jpg",
+    fileUrl: "/certificates/mean-stack-orange.jpg",
     sortOrder: 4,
   },
   {
     id: "cert-6",
-    title: "DataCamp",
+    title: "Intermediate SQL Queries",
     issuer: "DataCamp",
     issueDate: "Mar 2021",
     credentialUrl: "https://www.datacamp.com/statement-of-accomplishment/course/05a77866774d5cef369a8530a2badcd25a679659",
-    imageUrl: "",
+    imageUrl: "https://www.datacamp.com/statement-of-accomplishment/badge/course/05a77866774d5cef369a8530a2badcd25a679659.png",
     fileUrl: "",
     sortOrder: 5,
   },
@@ -87,7 +86,7 @@ const seed: Certificate[] = [
     issueDate: "Jan 2020",
     credentialUrl: "https://www.coursera.org/share/104b7020c46db144df2305bbcd1273c2",
     imageUrl: "",
-    fileUrl: "",
+    fileUrl: "https://www.coursera.org/share/104b7020c46db144df2305bbcd1273c2",
     sortOrder: 6,
   },
   {
@@ -97,7 +96,7 @@ const seed: Certificate[] = [
     issueDate: "Jun 2019",
     credentialUrl: "https://courses.cognitiveclass.ai/certificates/93a6dc8238e94e1cbff630310fbaa9b6",
     imageUrl: "",
-    fileUrl: "",
+    fileUrl: "https://courses.cognitiveclass.ai/certificates/93a6dc8238e94e1cbff630310fbaa9b6",
     sortOrder: 7,
   },
   {
@@ -106,7 +105,7 @@ const seed: Certificate[] = [
     issuer: "Udacity",
     issueDate: "Apr 2019",
     credentialUrl: "https://drive.google.com/file/d/1sKuhrGW266ywgYZCf9G24hqjQsrIjJoT/view",
-    imageUrl: "",
+    imageUrl: "https://drive.google.com/thumbnail?id=1sKuhrGW266ywgYZCf9G24hqjQsrIjJoT&sz=w1600",
     fileUrl: "https://drive.google.com/file/d/1sKuhrGW266ywgYZCf9G24hqjQsrIjJoT/view",
     sortOrder: 8,
   },
@@ -116,7 +115,7 @@ const seed: Certificate[] = [
     issuer: "Udemy",
     issueDate: "Jan 2019",
     credentialUrl: "https://drive.google.com/file/d/1_d31HyEBbseIWmy8EzudLb1lci4-KRqd/view",
-    imageUrl: "",
+    imageUrl: "https://drive.google.com/thumbnail?id=1_d31HyEBbseIWmy8EzudLb1lci4-KRqd&sz=w1600",
     fileUrl: "https://drive.google.com/file/d/1_d31HyEBbseIWmy8EzudLb1lci4-KRqd/view",
     sortOrder: 9,
   },
@@ -165,10 +164,33 @@ function write(items: Certificate[]) {
   }
 }
 
+const EXCLUDED_CERTS = new Set(["cert-11", "cert-12"]);
+
 export const certStore = {
   async hydrate() {
     const blob = await readBlob();
-    if (blob) write(blob);
+    if (!blob?.length) {
+      write(seed);
+      return;
+    }
+    const byId = new Map(seed.map((item) => [item.id, item]));
+    const mapped = blob
+      .filter((item) => !EXCLUDED_CERTS.has(item.id))
+      .map((item) => {
+      const next = byId.get(item.id);
+      if (!next) return item;
+      const genericTitle = !item.title || item.title === item.issuer;
+      return {
+        ...item,
+        title: genericTitle ? next.title : item.title,
+        issuer: item.issuer || next.issuer,
+        imageUrl: item.imageUrl || next.imageUrl,
+        fileUrl: item.fileUrl || next.fileUrl,
+        credentialUrl: item.credentialUrl || next.credentialUrl,
+      };
+    });
+    const have = new Set(mapped.map((item) => item.id));
+    write([...mapped, ...seed.filter((item) => !have.has(item.id))]);
   },
   list() {
     return read().sort((a, b) => a.sortOrder - b.sortOrder);

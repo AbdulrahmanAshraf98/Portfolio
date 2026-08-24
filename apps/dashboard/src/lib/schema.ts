@@ -3,6 +3,7 @@ export type Field = {
   label: string;
   type: "text" | "textarea" | "url" | "list" | "boolean" | "number" | "file";
   accept?: string;
+  hidden?: boolean;
 };
 
 export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolean; fields: Field[] }> = {
@@ -33,7 +34,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "mediaUrl", label: "Cover image", type: "file", accept: "image/*" },
       { key: "fileUrl", label: "Attached file", type: "file" },
       { key: "linkUrl", label: "External link", type: "url" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   settings: {
@@ -45,7 +46,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "xUrl", label: "X URL", type: "url" },
       {
         key: "sectionOrder",
-        label: "Page sections order (one per line: skills, experience, projects, education, featured, certificates, earlier)",
+        label: "Page sections — drag to reorder",
         type: "list",
       },
     ],
@@ -58,7 +59,8 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "dateRange", label: "Dates", type: "text" },
       { key: "focus", label: "Core focus (CV line)", type: "textarea" },
       { key: "bullets", label: "Bullets (one per line)", type: "list" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "mediaUrls", label: "Media images (one URL per line)", type: "list" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   educations: {
@@ -68,7 +70,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "school", label: "School", type: "text" },
       { key: "dateRange", label: "Dates", type: "text" },
       { key: "details", label: "Details (one per line)", type: "list" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   skills: {
@@ -79,7 +81,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "iconUrl", label: "Icon (optional)", type: "file", accept: "image/*" },
       { key: "shadowColor", label: "Shadow class", type: "text" },
       { key: "shadowColorHover", label: "Hover shadow class", type: "text" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   projects: {
@@ -99,7 +101,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "categories", label: "Categories (comma separated)", type: "list" },
       { key: "featured", label: "Featured", type: "boolean" },
       { key: "published", label: "Published", type: "boolean" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   certificates: {
@@ -111,7 +113,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
       { key: "credentialUrl", label: "Credential / LinkedIn URL", type: "url" },
       { key: "imageUrl", label: "Certificate image", type: "file", accept: "image/*" },
       { key: "fileUrl", label: "Certificate file", type: "file" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   socials: {
@@ -119,7 +121,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
     fields: [
       { key: "name", label: "Name (github, linkedin, x, gmail)", type: "text" },
       { key: "url", label: "URL", type: "url" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
   contacts: {
@@ -127,7 +129,7 @@ export const RESOURCE_SCHEMA: Record<string, { label: string; singleton?: boolea
     fields: [
       { key: "title", label: "Label", type: "text" },
       { key: "info", label: "Value", type: "text" },
-      { key: "sortOrder", label: "Order", type: "number" },
+      { key: "sortOrder", label: "Order", type: "number", hidden: true },
     ],
   },
 };

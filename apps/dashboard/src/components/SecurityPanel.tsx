@@ -62,21 +62,18 @@ export function SecurityPanel() {
   }
 
   return (
-    <section className="space-y-8 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Security</h1>
-      <p className="text-sm text-gray-500">
-        Password is stored as a bcrypt hash in identity JSON. Client keys are hashed. The plaintext key is shown once.
-      </p>
-      {error ? <p className="text-red-400 text-sm">{error}</p> : null}
-      {message ? <p className="text-cyan-400 text-sm">{message}</p> : null}
+    <section className="grid max-w-4xl gap-6 lg:grid-cols-2">
+      {error ? <p className="lg:col-span-2 text-sm text-red-400">{error}</p> : null}
+      {message ? <p className="lg:col-span-2 text-sm text-cyan-300">{message}</p> : null}
 
-      <form onSubmit={onPassword} className="rounded-xl border border-gray-800 p-5 space-y-4">
-        <h2 className="font-semibold">Change password</h2>
+      <form onSubmit={onPassword} className="rounded-3xl border border-white/10 bg-zinc-950/50 p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-white">Password</h2>
+        <p className="text-sm text-zinc-500">Stored as a bcrypt hash. Min 12 characters.</p>
         <label className="block text-sm">
-          <span className="text-gray-400">Current password</span>
+          <span className="text-zinc-400">Current password</span>
           <input
             type="password"
-            className="mt-1 w-full rounded-md bg-black border border-gray-800 px-3 py-2"
+            className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2"
             value={currentPassword}
             onChange={(event) => setCurrentPassword(event.target.value)}
             minLength={12}
@@ -84,59 +81,53 @@ export function SecurityPanel() {
           />
         </label>
         <label className="block text-sm">
-          <span className="text-gray-400">New password (min 12)</span>
+          <span className="text-zinc-400">New password</span>
           <input
             type="password"
-            className="mt-1 w-full rounded-md bg-black border border-gray-800 px-3 py-2"
+            className="mt-1.5 w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2"
             value={newPassword}
             onChange={(event) => setNewPassword(event.target.value)}
             minLength={12}
             required
           />
         </label>
-        <button disabled={busy} className="px-5 py-2 rounded-md bg-cyan-700">
+        <button disabled={busy} className="w-full rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 py-2.5 font-semibold text-black">
           Update password
         </button>
       </form>
 
-      <div className="rounded-xl border border-gray-800 p-5 space-y-4">
-        <h2 className="font-semibold">Client API keys</h2>
-        <p className="text-sm text-gray-500">
-          GraphQL accepts INTERNAL_API_SECRET or any valid generated client key in x-internal-key. Keys are stored
-          hashed in identity JSON and take effect immediately — do not put client keys in Vercel env or redeploy.
+      <div className="rounded-3xl border border-white/10 bg-zinc-950/50 p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-white">Client API keys</h2>
+        <p className="text-sm text-zinc-500">
+          GraphQL accepts a generated client key in x-internal-key. Keys are hashed. Copy once — do not put them in Vercel env.
         </p>
-        <button disabled={busy} onClick={() => void generateKey()} className="px-5 py-2 rounded-md bg-cyan-700">
+        <button
+          disabled={busy}
+          onClick={() => void generateKey()}
+          className="rounded-xl border border-white/10 px-4 py-2 text-sm text-cyan-200 hover:bg-white/5"
+        >
           Generate client key
         </button>
         {freshKey ? (
-          <textarea readOnly className="w-full rounded-md bg-black border border-cyan-900 px-3 py-2 text-sm" rows={3} value={freshKey} />
+          <textarea readOnly className="w-full rounded-xl border border-cyan-900 bg-black px-3 py-2 text-sm" rows={3} value={freshKey} />
         ) : null}
-        <table className="w-full text-sm">
-          <thead className="text-gray-500">
-            <tr>
-              <th className="text-left py-2">Prefix</th>
-              <th className="text-left py-2">Created</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {keys.map((item) => (
-              <tr key={item.id} className="border-t border-gray-800">
-                <td className="py-2 font-mono">{item.prefix}…</td>
-                <td className="py-2 text-gray-500">{item.createdAt.slice(0, 10)}</td>
-                <td className="py-2 text-right">
-                  {item.revokedAt ? (
-                    <span className="text-gray-600">revoked</span>
-                  ) : (
-                    <button className="text-red-400" onClick={() => void revoke(item.id)}>
-                      Revoke
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="divide-y divide-white/10">
+          {keys.map((item) => (
+            <div key={item.id} className="flex items-center justify-between py-3 text-sm">
+              <div>
+                <p className="font-mono text-zinc-200">{item.prefix}…</p>
+                <p className="text-xs text-zinc-500">{item.createdAt.slice(0, 10)}</p>
+              </div>
+              {item.revokedAt ? (
+                <span className="text-zinc-600">revoked</span>
+              ) : (
+                <button className="text-red-400" onClick={() => void revoke(item.id)}>
+                  Revoke
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
