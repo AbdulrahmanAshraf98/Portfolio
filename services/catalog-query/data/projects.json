@@ -1,0 +1,464 @@
+[
+  {
+    "id": "proj-1",
+    "sortOrder": 0,
+    "published": true,
+    "name": "Mazraaty Digital Agriculture Platform (B2G UAE)",
+    "slug": "mazraaty",
+    "featured": true,
+    "description": "Enterprise-scale geospatial backend for UAE government stakeholders. Implemented PostGIS spatial analysis and reporting dashboards, secure authentication, and real-time data processing for a B2G agriculture platform at Mahaseel.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "PostGIS",
+      "TypeORM",
+      "Redis",
+      "Azure APIs",
+      "UAE Pass"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Mahaseel",
+    "bullets": [
+      "Built enterprise-scale geospatial backend systems for government stakeholders.",
+      "Implemented PostGIS-based spatial analysis and reporting dashboards.",
+      "Integrated secure authentication and real-time data processing."
+    ]
+  },
+  {
+    "id": "proj-2",
+    "sortOrder": 1,
+    "published": true,
+    "name": "EFB System — Supply Chain & Traceability Platform",
+    "slug": "efb-system",
+    "featured": true,
+    "description": "End-to-end supply chain traceability for the Egyptian Food Bank. QR-code tracking, multi-warehouse inventory, procurement-to-delivery with automated purchase orders and quality control, stock validation, fulfillment, and waste workflows for government agencies, associations, and beneficiaries.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "NestJS",
+      "TypeScript",
+      "MongoDB",
+      "Cloud Storage",
+      "Redis"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Mahaseel",
+    "bullets": [
+      "Developed an end-to-end supply chain traceability system with QR-code-based tracking for real-time monitoring.",
+      "Built a robust backend architecture for multi-warehouse inventory management and distribution workflows.",
+      "Designed a comprehensive procurement-to-delivery pipeline with automated purchase order and quality control systems.",
+      "Automated stock validation, order fulfillment, and waste management processes.",
+      "Implemented a multi-stakeholder platform supporting government agencies, associations, and beneficiaries."
+    ]
+  },
+  {
+    "id": "proj-3",
+    "sortOrder": 2,
+    "published": true,
+    "name": "Mahaseel — Agricultural Services Platform",
+    "slug": "mahaseel",
+    "featured": true,
+    "description": "Community Wall, Service Requests, and Agri Waste Marketplace. Resolved backend bottlenecks, added dynamic RBAC, internationalization, and Google/Facebook OAuth social login.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "TypeScript",
+      "NestJS",
+      "MongoDB",
+      "Redis",
+      "Swagger",
+      "Azure"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Mahaseel",
+    "bullets": [
+      "Built Community Wall, Service Requests, and Agri Waste Marketplace modules.",
+      "Enhanced performance by resolving backend bottlenecks and optimizing queries.",
+      "Improved ACL with dynamic role-based permissions and security policies.",
+      "Integrated internationalization and social login (Google/Facebook OAuth)."
+    ]
+  },
+  {
+    "id": "proj-4",
+    "sortOrder": 3,
+    "published": true,
+    "name": "New Gini — ERP System",
+    "slug": "new-gini",
+    "featured": true,
+    "description": "Mobile ERP APIs for ride-hailing, delivery, car rental, and chat, with dynamic permission systems. Built at Techs Experts on Laravel and MySQL.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "JavaScript",
+      "Firebase"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Techs Experts",
+    "bullets": [
+      "Developed APIs for mobile ERP modules (ride-hailing, delivery, car rental, chat).",
+      "Implemented dynamic permission systems."
+    ]
+  },
+  {
+    "id": "proj-5",
+    "sortOrder": 4,
+    "published": true,
+    "name": "Elmarsah — E-Commerce Platform",
+    "slug": "elmarsah",
+    "featured": true,
+    "description": "Complete e-commerce system with dashboards, order management, and payments. Built at Techs Experts.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "Laravel",
+      "PHP",
+      "MySQL",
+      "JavaScript",
+      "Firebase"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Techs Experts",
+    "bullets": [
+      "Built a complete e-commerce system with dashboards, order management, and payments."
+    ]
+  },
+  {
+    "id": "proj-6",
+    "sortOrder": 5,
+    "published": true,
+    "name": "Orange Digital Center Dashboard",
+    "slug": "odc-dashboard",
+    "featured": true,
+    "description": "Backend and frontend for a real-time interactive internal dashboard at Orange Digital Center.",
+    "imageUrl": "",
+    "lazyImageUrl": "",
+    "liveUrl": "",
+    "githubUrl": "",
+    "videoUrl": "",
+    "technologies": [
+      "NestJS",
+      "TypeScript",
+      "React",
+      "Redux Toolkit",
+      "Docker",
+      "Swagger"
+    ],
+    "categories": [
+      "Key projects"
+    ],
+    "company": "Orange Digital Center",
+    "bullets": [
+      "Developed backend and frontend for a real-time interactive dashboard."
+    ]
+  },
+  {
+    "id": "proj-7",
+    "sortOrder": 6,
+    "published": true,
+    "name": "Movie App",
+    "slug": "movie-app",
+    "featured": false,
+    "description": "Movie discovery app powered by TMDB.",
+    "imageUrl": "/projects/Movie-App.webp",
+    "lazyImageUrl": "/projects/Movie-AppLazy.webp",
+    "liveUrl": "https://movie-app-six-xi.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/movie-app",
+    "videoUrl": "https://www.youtube.com/watch?v=kjDcGwcrmCQ",
+    "technologies": [
+      "React JS",
+      "Firebase",
+      "TMDB API",
+      "Redux"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-8",
+    "sortOrder": 7,
+    "published": true,
+    "name": "Personal Portfolio",
+    "slug": "personal-portfolio",
+    "featured": false,
+    "description": "Original PWA portfolio, now this microservices platform.",
+    "imageUrl": "/projects/Portfolio.webp",
+    "lazyImageUrl": "/projects/PortfolioLazy.webp",
+    "liveUrl": "https://portfolio-mauve-gamma-79.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/Portfolio",
+    "videoUrl": "",
+    "technologies": [
+      "React JS",
+      "Tailwind CSS",
+      "PWA"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-9",
+    "sortOrder": 8,
+    "published": true,
+    "name": "Youtube-Clone",
+    "slug": "youtube-clone",
+    "featured": false,
+    "description": "YouTube clone with Material UI and YouTube API.",
+    "imageUrl": "/projects/YoutubeClone.webp",
+    "lazyImageUrl": "/projects/YoutubeCloneLazy.webp",
+    "liveUrl": "https://youtube-clone-react-mu.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/Youtube-Clone-React-MU",
+    "videoUrl": "",
+    "technologies": [
+      "React JS",
+      "Material UI",
+      "YouTube API"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-10",
+    "sortOrder": 9,
+    "published": true,
+    "name": "Crow Cloths E-Commerce",
+    "slug": "crown-clothes",
+    "featured": false,
+    "description": "E-commerce store with Firebase auth and Stripe checkout.",
+    "imageUrl": "/projects/Crow-Clothes.webp",
+    "lazyImageUrl": "/projects/Crow-ClothesLazy.webp",
+    "liveUrl": "https://crown-clothes.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/Crown-Clothes",
+    "videoUrl": "",
+    "technologies": [
+      "React JS",
+      "Firebase",
+      "Stripe"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-11",
+    "sortOrder": 10,
+    "published": true,
+    "name": "E-Commerce Js",
+    "slug": "e-commerce-js",
+    "featured": false,
+    "description": "Vanilla JavaScript e-commerce with Tailwind and Webpack.",
+    "imageUrl": "/projects/JsE-CommerceApp.webp",
+    "lazyImageUrl": "/projects/JsE-CommerceAppLazy.webp",
+    "liveUrl": "https://e-commerce-vanlia-javascript.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/e-commerce-Vanlia-Javascript-Tailwind-Css-Wepback",
+    "videoUrl": "",
+    "technologies": [
+      "JavaScript",
+      "Tailwind CSS"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-12",
+    "sortOrder": 11,
+    "published": true,
+    "name": "Forkify Recipe Website",
+    "slug": "forkify",
+    "featured": false,
+    "description": "Recipe search app with public food APIs.",
+    "imageUrl": "/projects/forkify.webp",
+    "lazyImageUrl": "/projects/forkifyLazy.webp",
+    "liveUrl": "https://forkify-project-two.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/forkifyProject",
+    "videoUrl": "",
+    "technologies": [
+      "JavaScript",
+      "Sass"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-13",
+    "sortOrder": 12,
+    "published": true,
+    "name": "Mapty",
+    "slug": "mapty",
+    "featured": false,
+    "description": "Workout mapper using geolocation APIs.",
+    "imageUrl": "/projects/mapty.webp",
+    "lazyImageUrl": "/projects/maptyLazy.webp",
+    "liveUrl": "https://mapty-app-seven.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/MaptyApp",
+    "videoUrl": "",
+    "technologies": [
+      "JavaScript"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-14",
+    "sortOrder": 13,
+    "published": true,
+    "name": "Idemy",
+    "slug": "idemy",
+    "featured": false,
+    "description": "Education landing template.",
+    "imageUrl": "/projects/idemy.webp",
+    "lazyImageUrl": "/projects/idemyLazy.webp",
+    "liveUrl": "https://i-demy-template.vercel.app/index.html",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/iDemy-Template",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "Bootstrap"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-15",
+    "sortOrder": 14,
+    "published": true,
+    "name": "Planteo",
+    "slug": "planteo",
+    "featured": false,
+    "description": "Plant shop HTML template.",
+    "imageUrl": "/projects/planteo.webp",
+    "lazyImageUrl": "/projects/planteoLazy.webp",
+    "liveUrl": "https://abdulrahmanashraf98.github.io/planteo-template/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/planteo-template",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "Bootstrap"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-16",
+    "sortOrder": 15,
+    "published": true,
+    "name": "Bruno Simmons",
+    "slug": "bruno-simmons",
+    "featured": false,
+    "description": "Figma-to-HTML conversion.",
+    "imageUrl": "/projects/BrunoSimmons.webp",
+    "lazyImageUrl": "/projects/BrunoSimmonsLazy.webp",
+    "liveUrl": "https://html-css-java-script.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/convert-Figma-to-html-and-css-",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-17",
+    "sortOrder": 16,
+    "published": true,
+    "name": "TimeZone",
+    "slug": "timezone",
+    "featured": false,
+    "description": "Watch store HTML/CSS template.",
+    "imageUrl": "/projects/timezone.webp",
+    "lazyImageUrl": "/projects/timezoneLazy.webp",
+    "liveUrl": "https://template-four.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/template-four",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-18",
+    "sortOrder": 17,
+    "published": true,
+    "name": "Anime",
+    "slug": "anime",
+    "featured": false,
+    "description": "Anime landing template.",
+    "imageUrl": "/projects/Anime.webp",
+    "lazyImageUrl": "/projects/AnimeLazy.webp",
+    "liveUrl": "https://template-6.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/template-6",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  },
+  {
+    "id": "proj-19",
+    "sortOrder": 18,
+    "published": true,
+    "name": "Bakery",
+    "slug": "bakery",
+    "featured": false,
+    "description": "Bakery landing template.",
+    "imageUrl": "/projects/Bakery.webp",
+    "lazyImageUrl": "/projects/BakeryLazy.webp",
+    "liveUrl": "https://template-three-chi.vercel.app/",
+    "githubUrl": "https://github.com/AbdulrahmanAshraf98/template-three",
+    "videoUrl": "",
+    "technologies": [
+      "HTML",
+      "CSS"
+    ],
+    "categories": [
+      "Earlier work"
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "contact-1",
+    "sortOrder": 0,
+    "title": "Email",
+    "info": "abdulrahmanashraf9898@gmail.com"
+  },
+  {
+    "id": "contact-2",
+    "sortOrder": 1,
+    "title": "Phone",
+    "info": "+201284400082"
+  },
+  {
+    "id": "contact-3",
+    "sortOrder": 2,
+    "title": "Location",
+    "info": "Cairo, Egypt"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "id": "profile-1",
+  "fullName": "Abdulrhman Ashraf",
+  "logoText": "AS",
+  "headline": "Senior Backend Software Engineer",
+  "summary": "Senior Backend Software Engineer with 3+ years of experience architecting and scaling enterprise-grade backend systems, including within regulated banking environments. Proven track record owning backend infrastructure simultaneously across web and mobile product squads, with deep expertise in RESTful and GraphQL API design, secure microservices architecture, and database optimization. Recognized as a trusted cross-functional partner to Integration, Information Security, DevOps, and Network Security teams, consistently resolving complex technical blockers, remediating vulnerabilities, and driving new features from design through production.",
+  "about": "Senior Backend Software Engineer based in Cairo, Egypt. Currently owning enterprise microservices at Arab African International Bank across website and mobile product squads. Previously built geospatial, supply-chain, and ERP backends at Mahaseel, Techs Experts, and Orange Digital Center. Bachelor's in Business Information Systems, Helwan University, Very Good (81.6%).",
+  "location": "Cairo, Egypt",
+  "email": "abdulrahmanashraf9898@gmail.com",
+  "phone": "+201284400082",
+  "cvUrl": "/cv/Abdulrhman_Ashraf_Senior_Backend_Software_Engineer_CV.pdf",
+  "imageUrl": "/images/Profile.webp",
+  "imageLazyUrl": "/images/ProfileLazy.webp"
+}

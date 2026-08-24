@@ -1,0 +1,26 @@
+[
+  {
+    "id": "social-1",
+    "sortOrder": 0,
+    "name": "github",
+    "url": "https://github.com/AbdulrahmanAshraf98"
+  },
+  {
+    "id": "social-2",
+    "sortOrder": 1,
+    "name": "linkedin",
+    "url": "https://www.linkedin.com/in/abdulrahmanashraf98/"
+  },
+  {
+    "id": "social-3",
+    "sortOrder": 2,
+    "name": "x",
+    "url": ""
+  },
+  {
+    "id": "social-4",
+    "sortOrder": 3,
+    "name": "gmail",
+    "url": "mailto:abdulrahmanashraf9898@gmail.com"
+  }
+]

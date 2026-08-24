@@ -1,0 +1,209 @@
+[
+  {
+    "id": "skill-1",
+    "sortOrder": 0,
+    "name": "JavaScript",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-2",
+    "sortOrder": 1,
+    "name": "TypeScript",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-3",
+    "sortOrder": 2,
+    "name": "Java",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-4",
+    "sortOrder": 3,
+    "name": "PHP",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-5",
+    "sortOrder": 4,
+    "name": "C++",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-6",
+    "sortOrder": 5,
+    "name": "C",
+    "group": "Languages",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-7",
+    "sortOrder": 6,
+    "name": "NestJS",
+    "group": "Frameworks",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-8",
+    "sortOrder": 7,
+    "name": "Express.js",
+    "group": "Frameworks",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-9",
+    "sortOrder": 8,
+    "name": "Laravel",
+    "group": "Frameworks",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-10",
+    "sortOrder": 9,
+    "name": "Spring Boot (familiar)",
+    "group": "Frameworks",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-11",
+    "sortOrder": 10,
+    "name": "PostgreSQL",
+    "group": "Databases",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-12",
+    "sortOrder": 11,
+    "name": "MongoDB",
+    "group": "Databases",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-13",
+    "sortOrder": 12,
+    "name": "MySQL",
+    "group": "Databases",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-14",
+    "sortOrder": 13,
+    "name": "REST APIs",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-15",
+    "sortOrder": 14,
+    "name": "GraphQL",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-16",
+    "sortOrder": 15,
+    "name": "Microservices",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-17",
+    "sortOrder": 16,
+    "name": "Kafka",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-18",
+    "sortOrder": 17,
+    "name": "RabbitMQ",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-19",
+    "sortOrder": 18,
+    "name": "Docker",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-20",
+    "sortOrder": 19,
+    "name": "Git",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-21",
+    "sortOrder": 20,
+    "name": "Swagger",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-22",
+    "sortOrder": 21,
+    "name": "Prisma",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  },
+  {
+    "id": "skill-23",
+    "sortOrder": 22,
+    "name": "TypeORM",
+    "group": "Tools & Concepts",
+    "iconUrl": "",
+    "shadowColor": "",
+    "shadowColorHover": ""
+  }
+]

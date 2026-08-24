@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd ../.. && npm install",
+  "rewrites": [{ "source": "/(.*)", "destination": "/server.ts" }],
+  "functions": {
+    "server.ts": {
+      "includeFiles": "data/**",
+      "maxDuration": 30
+    }
+  }
+}

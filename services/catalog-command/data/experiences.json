@@ -1,0 +1,59 @@
+[
+  {
+    "id": "exp-1",
+    "sortOrder": 0,
+    "jobTitle": "Senior Backend Software Engineer",
+    "company": "Arab African International Bank (AAIB)",
+    "dateRange": "Aug 2025 – Present",
+    "focus": "Enterprise Microservices Architecture · RESTful & GraphQL APIs · Cross-Platform Backend Ownership (Web & Mobile) · Database Optimization · Security Vulnerability Remediation · Cross-Functional Collaboration",
+    "bullets": [
+      "Own and maintain enterprise-grade backend microservices spanning both website and mobile product squads in parallel, ensuring consistent business logic and API contracts across platforms.",
+      "Design and develop RESTful and GraphQL APIs in strict adherence to banking-grade security and regulatory compliance standards.",
+      "Lead the resolution of complex, cross-service technical blockers, partnering directly with Information Security to identify, prioritize, and remediate vulnerabilities ahead of release.",
+      "Drive database design and query optimization initiatives to improve reliability and response times for high-traffic, real-time services.",
+      "Perform code reviews and uphold clean architecture and coding standards to safeguard long-term maintainability across squads.",
+      "Lead cross-functional coordination across Integration, DevOps, Information Security, and Network Security teams to ensure secure, seamless deployment of new features.",
+      "Deliver new backend features end-to-end — from design through production rollout — balancing strict security requirements with delivery timelines."
+    ]
+  },
+  {
+    "id": "exp-2",
+    "sortOrder": 1,
+    "jobTitle": "Mid-Level Backend Software Engineer",
+    "company": "Mahaseel",
+    "dateRange": "Aug 2024 – Aug 2025",
+    "bullets": [
+      "Designed and implemented scalable PostgreSQL and MongoDB schemas and ERDs supporting multiple production platforms.",
+      "Developed and maintained backend systems using NestJS, Node.js, and Express.js.",
+      "Optimized system performance through query tuning and consistent enforcement of backend best practices.",
+      "Collaborated closely with frontend and mobile teams to support API integration and feature delivery.",
+      "Diagnosed and resolved frontend integration issues, ensuring seamless cross-platform functionality.",
+      "Contributed to code reviews, pair programming, and unit/integration testing."
+    ]
+  },
+  {
+    "id": "exp-3",
+    "sortOrder": 2,
+    "jobTitle": "Back-End Engineer",
+    "company": "Techs Experts",
+    "dateRange": "Sep 2023 – Aug 2024",
+    "bullets": [
+      "Designed and implemented relational database schemas and ERDs.",
+      "Developed backend logic and business rules using Laravel, PHP, and MySQL.",
+      "Built and documented RESTful APIs and web services for multiple client products.",
+      "Created reusable Laravel components to support clean, efficient front-end integration."
+    ]
+  },
+  {
+    "id": "exp-4",
+    "sortOrder": 3,
+    "jobTitle": "Back-End Engineer",
+    "company": "Orange Digital Center",
+    "dateRange": "Oct 2022 – Aug 2023",
+    "bullets": [
+      "Developed and maintained high-performance backend systems for internal platforms.",
+      "Designed and implemented RESTful APIs to support new product features.",
+      "Focused on backend optimization, debugging, and performance improvements."
+    ]
+  }
+]

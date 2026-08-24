@@ -1,0 +1,102 @@
+[
+  {
+    "id": "cert-1",
+    "title": "Microservices: Clean Architecture, DDD, SAGA, Outbox & Kafka",
+    "issuer": "Udemy",
+    "issueDate": "Oct 2025",
+    "credentialUrl": "https://www.linkedin.com/in/abdulrahmanashraf98/overlay/Certifications/886338116/treasury?profileId=ACoAACwvXBEBnK-yLDowQBsYPawJMBrKCHp1Ows",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 0
+  },
+  {
+    "id": "cert-2",
+    "title": "Fundamentals of Database Engineering",
+    "issuer": "Udemy",
+    "issueDate": "Sep 2025",
+    "credentialUrl": "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 1
+  },
+  {
+    "id": "cert-3",
+    "title": "Data Structures",
+    "issuer": "Metwally Labs",
+    "issueDate": "Aug 2025",
+    "credentialUrl": "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 2
+  },
+  {
+    "id": "cert-4",
+    "title": "Algorithms Analysis and Design",
+    "issuer": "Metwally Labs",
+    "issueDate": "Apr 2025",
+    "credentialUrl": "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 3
+  },
+  {
+    "id": "cert-5",
+    "title": "MEAN Stack Diploma",
+    "issuer": "Orange Digital Center Egypt",
+    "issueDate": "Oct 2022",
+    "credentialUrl": "https://www.linkedin.com/in/abdulrahmanashraf98/details/certifications/",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 4
+  },
+  {
+    "id": "cert-6",
+    "title": "DataCamp",
+    "issuer": "DataCamp",
+    "issueDate": "Mar 2021",
+    "credentialUrl": "https://www.datacamp.com/statement-of-accomplishment/course/05a77866774d5cef369a8530a2badcd25a679659",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 5
+  },
+  {
+    "id": "cert-7",
+    "title": "Technical Support Fundamentals",
+    "issuer": "Google",
+    "issueDate": "Jan 2020",
+    "credentialUrl": "https://www.coursera.org/share/104b7020c46db144df2305bbcd1273c2",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 6
+  },
+  {
+    "id": "cert-8",
+    "title": "How to Build Chatbots",
+    "issuer": "Cognitive Class",
+    "issueDate": "Jun 2019",
+    "credentialUrl": "https://courses.cognitiveclass.ai/certificates/93a6dc8238e94e1cbff630310fbaa9b6",
+    "imageUrl": "",
+    "fileUrl": "",
+    "sortOrder": 7
+  },
+  {
+    "id": "cert-9",
+    "title": "Android Development",
+    "issuer": "Udacity",
+    "issueDate": "Apr 2019",
+    "credentialUrl": "https://drive.google.com/file/d/1sKuhrGW266ywgYZCf9G24hqjQsrIjJoT/view",
+    "imageUrl": "",
+    "fileUrl": "https://drive.google.com/file/d/1sKuhrGW266ywgYZCf9G24hqjQsrIjJoT/view",
+    "sortOrder": 8
+  },
+  {
+    "id": "cert-10",
+    "title": "HTML and CSS for Beginners - Build a Website & Launch ONLINE",
+    "issuer": "Udemy",
+    "issueDate": "Jan 2019",
+    "credentialUrl": "https://drive.google.com/file/d/1_d31HyEBbseIWmy8EzudLb1lci4-KRqd/view",
+    "imageUrl": "",
+    "fileUrl": "https://drive.google.com/file/d/1_d31HyEBbseIWmy8EzudLb1lci4-KRqd/view",
+    "sortOrder": 9
+  }
+]
