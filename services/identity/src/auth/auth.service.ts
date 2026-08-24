@@ -29,10 +29,13 @@ export class AuthService {
   async bootstrap() {
     await identityStore.hydrate();
     const admin = identityStore.readAdmin();
-    if (admin.passwordHash) return;
     const password = process.env.ADMIN_PASSWORD ?? "";
     const email = (process.env.ADMIN_EMAIL ?? admin.email).toLowerCase().trim();
     if (!password || password.length < MIN_PASSWORD) return;
+
+    const passwordOk = admin.passwordHash ? await bcrypt.compare(password, admin.passwordHash) : false;
+    if (passwordOk && secretsEqual(email, admin.email.toLowerCase().trim())) return;
+
     identityStore.writeAdmin({
       email,
       passwordHash: await bcrypt.hash(password, BCRYPT_ROUNDS),
