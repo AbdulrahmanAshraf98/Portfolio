@@ -35,7 +35,7 @@ export const fetchPortfolio = cache(async (): Promise<Portfolio> => {
       ...(secret ? { "x-internal-key": secret } : {}),
     },
     body: JSON.stringify({ query: PORTFOLIO_QUERY }),
-    next: { revalidate: 30 },
+    cache: "no-store",
   });
   const json = (await response.json()) as {
     data?: { portfolio: Portfolio };

@@ -15,7 +15,8 @@ export class CommandController {
   constructor(@Inject(CommandBus) private readonly commandBus: CommandBus) {}
 
   @Get("internal/snapshot")
-  snapshot() {
+  async snapshot() {
+    await jsonStore.syncFromBlob();
     return jsonStore.snapshot();
   }
 

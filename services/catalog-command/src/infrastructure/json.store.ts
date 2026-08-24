@@ -62,45 +62,14 @@ export class JsonStore {
   }
 
   async hydrate() {
+    await this.syncFromBlob();
+  }
+
+  async syncFromBlob() {
     const blob = await readCatalogBlob();
-    if (!blob?.profile) return;
-    const seed = fromSeed();
-    const highlights = blob.highlights ?? [];
-    const staleHighlights =
-      highlights.length !== 3 ||
-      !highlights.some((item) => String(item.mediaUrl ?? "").includes("aaib-milestone")) ||
-      highlights.some((item) => {
-        const title = String(item.title ?? "");
-        const media = String(item.mediaUrl ?? "");
-        return (
-          media.includes("/certificates/") ||
-          ["Personal Portfolio", "Portfolio platform", "Android Development.jpg"].includes(title)
-        );
-      });
-    const seedMediaByCompany = new Map(
-      seed.experiences
-        .filter((item) => item.mediaUrls?.length)
-        .map((item) => [item.company, item.mediaUrls!]),
-    );
-    const stripFeaturedMedia = <T extends { mediaUrls?: string[] }>(item: T) => {
-      const mediaUrls = item.mediaUrls?.filter((url) => !url.includes("/featured/"));
-      if (!mediaUrls?.length) {
-        const { mediaUrls: _removed, ...rest } = item;
-        return rest as T;
-      }
-      return { ...item, mediaUrls };
-    };
-    const experiences = (blob.experiences ?? seed.experiences).map((item) => {
-      const cleaned = stripFeaturedMedia(item);
-      const fromSeed = seedMediaByCompany.get(item.company);
-      if (fromSeed?.length) return { ...cleaned, mediaUrls: fromSeed };
-      return cleaned;
-    });
-    this.replace({
-      ...blob,
-      experiences,
-      highlights: staleHighlights || !highlights.length ? seed.highlights : highlights,
-    });
+    if (!blob?.profile) return false;
+    await this.replaceAsync({ ...blob, highlights: blob.highlights ?? [] });
+    return true;
   }
 
   load(): PortfolioData {
@@ -133,21 +102,30 @@ export class JsonStore {
         sectionOrder: ["skills", "experience", "projects", "education", "featured", "certificates", "earlier"],
       };
     }
-    this.save(data);
+    this.cache = data;
+    this.persistLocal(data);
     return data;
   }
 
   replace(data: PortfolioData) {
-    this.save({ ...data, highlights: data.highlights ?? [] });
+    void this.save({ ...data, highlights: data.highlights ?? [] });
+  }
+
+  async replaceAsync(data: PortfolioData) {
+    await this.save({ ...data, highlights: data.highlights ?? [] });
   }
 
   snapshot(): PortfolioData {
     return this.load();
   }
 
-  save(data: PortfolioData) {
+  async save(data: PortfolioData) {
     this.cache = data;
-    void writeCatalogBlob(data);
+    await writeCatalogBlob(data);
+    this.persistLocal(data);
+  }
+
+  private persistLocal(data: PortfolioData) {
     for (const dir of [tmpDir, bundledDir]) {
       try {
         writePart(dir, PARTS.profile, data.profile);
@@ -183,45 +161,45 @@ export class JsonStore {
       .sort((a, b) => Number(a.sortOrder ?? 0) - Number(b.sortOrder ?? 0));
   }
 
-  create(resource: ResourceKey, input: Record<string, unknown>) {
+  async create(resource: ResourceKey, input: Record<string, unknown>) {
     const data = this.load();
     if (resource === "profiles" || resource === "settings") {
       return this.update(resource, "singleton", input);
     }
     const item = { id: randomUUID(), sortOrder: 0, ...input };
     this.collection(resource).unshift(item as never);
-    this.save(data);
+    await this.save(data);
     return item;
   }
 
-  update(resource: ResourceKey, id: string, input: Record<string, unknown>) {
+  async update(resource: ResourceKey, id: string, input: Record<string, unknown>) {
     const data = this.load();
     if (resource === "profiles") {
       data.profile = { ...data.profile, ...input, id: data.profile.id };
-      this.save(data);
+      await this.save(data);
       return data.profile;
     }
     if (resource === "settings") {
       data.settings = { ...data.settings, ...input };
-      this.save(data);
+      await this.save(data);
       return data.settings;
     }
     const items = this.collection(resource) as { id: string }[];
     const index = items.findIndex((item) => item.id === id);
     if (index < 0) throw new Error("Not found");
     items[index] = { ...items[index], ...input, id };
-    this.save(data);
+    await this.save(data);
     return items[index];
   }
 
-  remove(resource: ResourceKey, id: string) {
+  async remove(resource: ResourceKey, id: string) {
     if (resource === "profiles" || resource === "settings") {
       throw new Error("Cannot delete this resource");
     }
     const data = this.load();
     const key = this.collectionKey(resource);
     (data[key] as { id: string }[]) = (data[key] as { id: string }[]).filter((item) => item.id !== id);
-    this.save(data);
+    await this.save(data);
     return { ok: true };
   }
 

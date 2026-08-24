@@ -168,31 +168,36 @@ const EXCLUDED_CERTS = new Set(["cert-11", "cert-12"]);
 
 export const certStore = {
   async hydrate() {
+    await this.refreshFromBlob();
+  },
+  async refreshFromBlob() {
     const blob = await readBlob();
     if (!blob?.length) {
       write(seed);
-      return;
+      return false;
     }
     const byId = new Map(seed.map((item) => [item.id, item]));
     const mapped = blob
       .filter((item) => !EXCLUDED_CERTS.has(item.id))
       .map((item) => {
-      const next = byId.get(item.id);
-      if (!next) return item;
-      const genericTitle = !item.title || item.title === item.issuer;
-      return {
-        ...item,
-        title: genericTitle ? next.title : item.title,
-        issuer: item.issuer || next.issuer,
-        imageUrl: item.imageUrl || next.imageUrl,
-        fileUrl: item.fileUrl || next.fileUrl,
-        credentialUrl: item.credentialUrl || next.credentialUrl,
-      };
-    });
+        const next = byId.get(item.id);
+        if (!next) return item;
+        const genericTitle = !item.title || item.title === item.issuer;
+        return {
+          ...item,
+          title: genericTitle ? next.title : item.title,
+          issuer: item.issuer || next.issuer,
+          imageUrl: item.imageUrl || next.imageUrl,
+          fileUrl: item.fileUrl || next.fileUrl,
+          credentialUrl: item.credentialUrl || next.credentialUrl,
+        };
+      });
     const have = new Set(mapped.map((item) => item.id));
     write([...mapped, ...seed.filter((item) => !have.has(item.id))]);
+    return true;
   },
-  list() {
+  async list() {
+    await this.refreshFromBlob();
     return read().sort((a, b) => a.sortOrder - b.sortOrder);
   },
   create(input: Partial<Certificate>) {

@@ -4,6 +4,7 @@ import { dirname, join } from "path";
 import { randomUUID } from "crypto";
 import { seedData } from "../database/seed-data";
 import type { PortfolioData, ResourceKey } from "../entities";
+import { readCatalogBlob } from "../persist";
 
 const bundledDir = join(__dirname, "../../data");
 const tmpDir = join(tmpdir(), "portfolio-parts");
@@ -58,6 +59,17 @@ export class JsonStore {
 
   private dirs() {
     return [tmpDir, bundledDir];
+  }
+
+  invalidateCache() {
+    this.cache = null;
+  }
+
+  async hydrateFromBlob() {
+    const blob = await readCatalogBlob();
+    if (!blob?.profile) return false;
+    this.replace({ ...blob, highlights: blob.highlights ?? [] });
+    return true;
   }
 
   load(): PortfolioData {

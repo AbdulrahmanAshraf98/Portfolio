@@ -1,4 +1,4 @@
-import { put, list } from "@vercel/blob";
+import { list } from "@vercel/blob";
 import type { PortfolioData } from "./entities";
 
 const NAME = "catalog/snapshot.json";
@@ -16,15 +16,4 @@ export async function readCatalogBlob(): Promise<PortfolioData | null> {
   } catch {
     return null;
   }
-}
-
-export async function writeCatalogBlob(data: PortfolioData) {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) return;
-  await put(NAME, JSON.stringify(data, null, 2), {
-    access: "public",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    token,
-  });
 }
