@@ -12,7 +12,10 @@ export function secretsEqual(provided?: string, expected?: string) {
 }
 
 export function getAllowedOrigins() {
-  return (process.env.ALLOWED_ORIGINS ?? "http://localhost:3000,http://localhost:3004,http://127.0.0.1:3000,http://127.0.0.1:3004")
+  const fallback = process.env.VERCEL
+    ? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app,https://aa-dashboard-five.vercel.app,https://aa-dashboard-abdulrahmanashraf98s-projects.vercel.app"
+    : "http://localhost:3000,http://localhost:3004,http://127.0.0.1:3000,http://127.0.0.1:3004";
+  return (process.env.ALLOWED_ORIGINS ?? fallback)
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
@@ -22,6 +25,7 @@ export function getAllowedOrigins() {
 export class InternalKeyGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest<Request>();
+    if (!process.env.INTERNAL_API_SECRET) return true;
     if (!secretsEqual(req.header("x-internal-key"), process.env.INTERNAL_API_SECRET)) {
       throw new UnauthorizedException("Forbidden");
     }

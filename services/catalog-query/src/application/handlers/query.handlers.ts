@@ -28,7 +28,7 @@ export class ListResourceHandler implements IQueryHandler<ListResourceQuery> {
 }
 
 async function pullWriteModel() {
-  const commandUrl = process.env.COMMAND_URL;
+  const commandUrl = process.env.COMMAND_URL ?? (process.env.VERCEL ? "https://aa-catalog-command.vercel.app" : "");
   const secret = process.env.INTERNAL_API_SECRET ?? "";
   if (!commandUrl) return;
   try {

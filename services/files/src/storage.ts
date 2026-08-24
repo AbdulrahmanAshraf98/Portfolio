@@ -40,7 +40,7 @@ export async function saveFile(file: { originalname: string; mimetype: string; s
   } else {
     mkdirSync(uploadDir, { recursive: true });
     writeFileSync(join(uploadDir, pathname), file.buffer);
-    const base = (process.env.PUBLIC_FILES_URL ?? "http://localhost:3007").replace(/\/$/, "");
+    const base = (process.env.PUBLIC_FILES_URL ?? (process.env.VERCEL ? "https://aa-files.vercel.app" : "http://localhost:3007")).replace(/\/$/, "");
     url = `${base}/uploads/${pathname}`;
   }
   const item: StoredFile = {

@@ -21,16 +21,18 @@ const PORTFOLIO_QUERY = `
 `;
 
 export const fetchPortfolio = cache(async (): Promise<Portfolio> => {
-  const endpoint = process.env.GRAPHQL_URL;
+  const endpoint =
+    process.env.GRAPHQL_URL ??
+    (process.env.VERCEL ? "https://aa-graphql.vercel.app/graphql" : "");
   const secret = process.env.INTERNAL_API_SECRET;
-  if (!endpoint || !secret) {
+  if (!endpoint) {
     throw new Error("Server is not configured");
   }
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-internal-key": secret,
+      ...(secret ? { "x-internal-key": secret } : {}),
     },
     body: JSON.stringify({ query: PORTFOLIO_QUERY }),
     next: { revalidate: 30 },
@@ -42,9 +44,10 @@ export const fetchPortfolio = cache(async (): Promise<Portfolio> => {
   if (!response.ok || json.errors?.length || !json.data?.portfolio) {
     throw new Error(json.errors?.[0]?.message ?? "Failed to load portfolio");
   }
+  const portfolio = json.data.portfolio;
   return {
-    highlights: [],
-    certificates: [],
-    ...json.data.portfolio,
+    ...portfolio,
+    highlights: portfolio.highlights ?? [],
+    certificates: portfolio.certificates ?? [],
   };
 });

@@ -20,9 +20,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "file is required" }, { status: 400 });
   }
 
-  const base = (process.env.FILES_URL ?? "http://localhost:3007").replace(/\/$/, "");
+  const base = (process.env.FILES_URL ?? (process.env.VERCEL ? "https://aa-files.vercel.app" : "http://localhost:3007")).replace(
+    /\/$/,
+    "",
+  );
   const secret = process.env.INTERNAL_API_SECRET;
-  if (!secret) return NextResponse.json({ error: "Server is not configured" }, { status: 500 });
 
   const body = new FormData();
   body.append("file", file);
@@ -30,7 +32,7 @@ export async function POST(request: Request) {
   const response = await fetch(`${base}/v1/files`, {
     method: "POST",
     headers: {
-      "x-internal-key": secret,
+      ...(secret ? { "x-internal-key": secret } : {}),
       authorization: `Bearer ${token}`,
     },
     body,

@@ -15,10 +15,14 @@ async function request<T>(baseUrl: string, path: string, init: RequestInit = {})
   return text ? (JSON.parse(text) as T) : ({} as T);
 }
 
-const identityUrl = () => process.env.IDENTITY_URL ?? "http://localhost:3001";
-const queryUrl = () => process.env.QUERY_URL ?? "http://localhost:3002";
-const commandUrl = () => process.env.COMMAND_URL ?? "http://localhost:3005";
-const certificatesUrl = () => process.env.CERTIFICATES_URL ?? "http://localhost:3006";
+const identityUrl = () =>
+  process.env.IDENTITY_URL ?? (process.env.VERCEL ? "https://aa-identity.vercel.app" : "http://localhost:3001");
+const queryUrl = () =>
+  process.env.QUERY_URL ?? (process.env.VERCEL ? "https://aa-catalog-query.vercel.app" : "http://localhost:3002");
+const commandUrl = () =>
+  process.env.COMMAND_URL ?? (process.env.VERCEL ? "https://aa-catalog-command.vercel.app" : "http://localhost:3005");
+const certificatesUrl = () =>
+  process.env.CERTIFICATES_URL ?? (process.env.VERCEL ? "https://aa-certificates-abdulrahmanashraf98s-projects.vercel.app" : "http://localhost:3006");
 
 export const identityClient = {
   login: (email: string, password: string) =>

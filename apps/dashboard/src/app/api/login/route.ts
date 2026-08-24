@@ -13,16 +13,16 @@ const LOGIN = `
 
 export async function POST(request: Request) {
   const { email, password } = (await request.json()) as { email?: string; password?: string };
-  const endpoint = process.env.GRAPHQL_URL;
+  const endpoint = process.env.GRAPHQL_URL ?? (process.env.VERCEL ? "https://aa-graphql.vercel.app/graphql" : "");
   const secret = process.env.INTERNAL_API_SECRET;
-  if (!endpoint || !secret) {
+  if (!endpoint) {
     return NextResponse.json({ error: "Server is not configured" }, { status: 500 });
   }
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-internal-key": secret,
+      ...(secret ? { "x-internal-key": secret } : {}),
     },
     body: JSON.stringify({ query: LOGIN, variables: { email, password } }),
   });

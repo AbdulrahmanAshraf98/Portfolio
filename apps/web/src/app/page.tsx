@@ -9,7 +9,7 @@ import type { Portfolio } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-mauve-gamma-79.vercel.app";
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app";
 const DEFAULT_SECTIONS = ["skills", "experience", "projects", "education", "featured", "certificates", "earlier"];
 
 const NAV: Record<string, string> = {

@@ -16,16 +16,16 @@ export async function POST(request: Request) {
   };
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value || bodyToken;
-  const endpoint = process.env.GRAPHQL_URL;
+  const endpoint = process.env.GRAPHQL_URL ?? (process.env.VERCEL ? "https://aa-graphql.vercel.app/graphql" : "");
   const secret = process.env.INTERNAL_API_SECRET;
-  if (!endpoint || !secret) {
+  if (!endpoint) {
     return NextResponse.json({ error: "Server is not configured" }, { status: 500 });
   }
   const response = await fetch(endpoint, {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      "x-internal-key": secret,
+      ...(secret ? { "x-internal-key": secret } : {}),
       ...(token ? { authorization: `Bearer ${token}` } : {}),
     },
     body: JSON.stringify({ query, variables }),

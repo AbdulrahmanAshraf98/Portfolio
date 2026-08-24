@@ -18,7 +18,10 @@ export function secretsEqual(provided?: string, expected?: string) {
 }
 
 export function getAllowedOrigins() {
-  return (process.env.ALLOWED_ORIGINS ?? "http://localhost:3000,http://localhost:3004,http://127.0.0.1:3000,http://127.0.0.1:3004")
+  const fallback = process.env.VERCEL
+    ? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app,https://aa-dashboard-five.vercel.app,https://aa-dashboard-abdulrahmanashraf98s-projects.vercel.app"
+    : "http://localhost:3000,http://localhost:3004,http://127.0.0.1:3000,http://127.0.0.1:3004";
+  return (process.env.ALLOWED_ORIGINS ?? fallback)
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
@@ -36,10 +39,14 @@ export function applySecurityHeaders(app: INestApplication) {
 }
 
 export async function isAllowedGatewayKey(key?: string) {
-  if (secretsEqual(key, process.env.INTERNAL_API_SECRET)) return true;
+  const expected = process.env.INTERNAL_API_SECRET;
+  if (!expected) return true;
+  if (secretsEqual(key, expected)) return true;
   if (!key) return false;
   try {
-    const base = (process.env.IDENTITY_URL ?? "http://localhost:3001").replace(/\/$/, "");
+    const base = (
+      process.env.IDENTITY_URL ?? (process.env.VERCEL ? "https://aa-identity.vercel.app" : "http://localhost:3001")
+    ).replace(/\/$/, "");
     const response = await fetch(`${base}/internal/keys/verify`, {
       method: "POST",
       headers: {

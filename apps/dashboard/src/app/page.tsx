@@ -195,7 +195,7 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-500">Dynamic content for the public site</p>
         </div>
         <div className="flex items-center gap-4">
-          <a href={`${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/cv`} target="_blank" rel="noreferrer" className="text-sm text-cyan-400">
+          <a href={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://aa-web-abdulrahmanashraf98s-projects.vercel.app"}/cv`} target="_blank" rel="noreferrer" className="text-sm text-cyan-400">
             Generate CV
           </a>
           <button
